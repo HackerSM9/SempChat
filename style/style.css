@@ -1,0 +1,62 @@
+/* Reset and Dark Mode */
+body {
+    background-color: #121212;
+    color: #e1e1e1;
+    font-family: Arial, sans-serif;
+}
+
+input, button {
+    background: #2c2c2c;
+    border: none;
+    color: #e1e1e1;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+button {
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #6a0dad; /* Purple highlight */
+}
+
+/* Stage and Animation */
+.stage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    text-align: center;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Chatbox Styling */
+.chatbox {
+    border: 1px solid #6a0dad;
+    width: 80%;
+    height: 60vh;
+    overflow-y: auto;
+    margin: 20px 0;
+    padding: 10px;
+}
+
+#messageInput {
+    width: 70%;
+}
+
+#partnerStatus {
+    color: #6a0dad;
+    font-weight: bold;
+    animation: fadeIn 1s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
