@@ -1,0 +1,92 @@
+/* Global Dark Mode */
+body {
+    background-color: #121212;
+    color: #e0e0e0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.stage {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    animation: fadeIn 1s ease-in-out;
+}
+
+/* Purple Animation for Elements */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+input, button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+}
+
+input {
+    background-color: #333;
+    color: #e0e0e0;
+}
+
+/* Buttons with Purple Animation */
+button {
+    background-color: #6a1b9a;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #8e24aa;
+    animation: buttonPulse 1s infinite;
+}
+
+/* Button Pulse Animation */
+@keyframes buttonPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+#chat-box {
+    background-color: #333;
+    border-radius: 5px;
+    padding: 10px;
+    max-height: 300px;
+    overflow-y: auto;
+    margin-top: 1em;
+}
+
+#message-input {
+    width: calc(100% - 50px);
+    display: inline-block;
+}
+
+#chat-stage button {
+    width: 40px;
+    background-color: #8e24aa;
+    animation: sendButtonPulse 1.5s infinite;
+}
+
+/* Send Button Pulse */
+@keyframes sendButtonPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
