@@ -4,40 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SeChat</title>
-    <link rel="stylesheet" href="styles/app_style.css">
+    <link rel="stylesheet" href="style/style.css">
 </head>
 <body>
-    <div class="container">
-        <!-- Stage 1: User Login -->
-        <div id="login-stage" class="stage">
-            <h2>Hi,</h2>
-            <label>Enter Username:</label>
-            <input type="text" id="username" placeholder="X" required>
-            <label>Enter PIN:</label>
-            <input type="password" id="pin" placeholder="5689" required>
-            <button onclick="enterPartnerInfo()">Next</button>
-        </div>
-
-        <!-- Stage 2: Partner Verification -->
-        <div id="partner-stage" class="stage" style="display:none;">
-            <h2>Almost there!</h2>
-            <label>Partner's Username:</label>
-            <input type="text" id="partner-username" placeholder="Y" required>
-            <label>Partner's PIN:</label>
-            <input type="password" id="partner-pin" placeholder="12345" required>
-            <button onclick="connectToChat()">Connect</button>
-        </div>
-
-        <!-- Chatbox after connection -->
-        <div id="chat-stage" class="stage" style="display:none;">
-            <h2 id="chat-heading">Connected with <span id="partner-name">Y</span></h2>
-            <div id="chat-box">
-                <!-- Messages will appear here -->
-            </div>
-            <input type="text" id="message-input" placeholder="Enter message...">
-            <button onclick="sendMessage()">➤</button>
-        </div>
+    <!-- Stage 1: Username and PIN Entry -->
+    <div id="stage1" class="stage">
+        <h1>Hi,</h1>
+        <label for="username">Enter Username:</label>
+        <input type="text" id="username" placeholder="Username">
+        <label for="pin">Enter PIN:</label>
+        <input type="password" id="pin" placeholder="4-6 digit PIN">
+        <button onclick="goToStage2()">Next</button>
     </div>
-    <script src="scripts/chat.js"></script>
+
+    <!-- Stage 2: Enter Partner's Username and PIN -->
+    <div id="stage2" class="stage hidden">
+        <h1>Almost there!</h1>
+        <label for="partnerUsername">Partner's Username:</label>
+        <input type="text" id="partnerUsername" placeholder="Partner's Username">
+        <label for="partnerPin">Partner's PIN:</label>
+        <input type="password" id="partnerPin" placeholder="4-6 digit PIN">
+        <button onclick="connectToChat()">Enter Chat</button>
+    </div>
+
+    <!-- Stage 3: Chatbox Session -->
+    <div id="stage3" class="stage hidden">
+        <h2 id="partnerStatus">Connected with </h2>
+        <div id="chatbox" class="chatbox">
+            <!-- Messages will appear here -->
+        </div>
+        <input type="text" id="messageInput" placeholder="Enter message...">
+        <button onclick="sendMessage()">Send</button>
+    </div>
+
+    <script src="script/peer.js"></script>
+    <script src="script/app.js"></script>
 </body>
 </html>
