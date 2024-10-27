@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SeChat</title>
+    <link rel="stylesheet" href="styles/app_style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Stage 1: User Login -->
+        <div id="login-stage" class="stage">
+            <h2>Hi,</h2>
+            <label>Enter Username:</label>
+            <input type="text" id="username" placeholder="X" required>
+            <label>Enter PIN:</label>
+            <input type="password" id="pin" placeholder="5689" required>
+            <button onclick="enterPartnerInfo()">Next</button>
+        </div>
+
+        <!-- Stage 2: Partner Verification -->
+        <div id="partner-stage" class="stage" style="display:none;">
+            <h2>Almost there!</h2>
+            <label>Partner's Username:</label>
+            <input type="text" id="partner-username" placeholder="Y" required>
+            <label>Partner's PIN:</label>
+            <input type="password" id="partner-pin" placeholder="12345" required>
+            <button onclick="connectToChat()">Connect</button>
+        </div>
+
+        <!-- Chatbox after connection -->
+        <div id="chat-stage" class="stage" style="display:none;">
+            <h2 id="chat-heading">Connected with <span id="partner-name">Y</span></h2>
+            <div id="chat-box">
+                <!-- Messages will appear here -->
+            </div>
+            <input type="text" id="message-input" placeholder="Enter message...">
+            <button onclick="sendMessage()">➤</button>
+        </div>
+    </div>
+    <script src="scripts/chat.js"></script>
+</body>
+</html>
