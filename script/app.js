@@ -2,6 +2,7 @@
 
 let peer;
 let conn;
+let isWaiting = true;
 
 function goToStage2() {
     document.getElementById("stage1").classList.add("hidden");
@@ -25,21 +26,24 @@ function connectToChat() {
         debug: 3,
     });
 
-    // Wait for PeerJS to establish a connection
+    // Display waiting message
+    document.getElementById("stage2").classList.add("hidden");
+    document.getElementById("stage3").classList.remove("hidden");
+    document.getElementById("partnerStatus").textContent = `Waiting for ${partnerUsername} to connect...`;
+
+    // Handle Peer connection events
     peer.on("open", (id) => {
         console.log("Peer connected with ID:", id);
-        document.getElementById("partnerStatus").textContent = `Waiting for ${partnerUsername} to connect...`;
-        
-        // Attempt to connect to partner
+
         const partnerId = partnerUsername + partnerPin;
         conn = peer.connect(partnerId);
 
         conn.on("open", () => {
             console.log("Connected to partner:", partnerId);
-            document.getElementById("stage2").classList.add("hidden");
-            document.getElementById("stage3").classList.remove("hidden");
+            isWaiting = false;
             document.getElementById("partnerStatus").textContent = `Connected with ${partnerUsername}`;
             
+            // Handle incoming messages
             conn.on("data", (data) => {
                 displayMessage(data, "partner-message");
             });
@@ -47,12 +51,17 @@ function connectToChat() {
 
         conn.on("error", (err) => {
             console.error("Connection error:", err);
+            alert("Failed to connect. Please try again.");
         });
     });
 
     peer.on("connection", (connection) => {
         conn = connection;
         console.log("Partner connected to you.");
+        isWaiting = false;
+        document.getElementById("partnerStatus").textContent = `Connected with ${partnerUsername}`;
+        
+        // Handle incoming messages
         conn.on("data", (data) => {
             displayMessage(data, "partner-message");
         });
