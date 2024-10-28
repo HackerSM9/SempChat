@@ -16,13 +16,13 @@ header, footer {
 }
 
 .title {
-    color: #6a0dad;
+    color: #bb86fc; /* Luminous purple */
     font-size: 2em;
     margin: 0;
 }
 
 footer p {
-    color: #6a0dad;
+    color: #b3b3b3; /* Light grey color */
     font-size: 1em;
     margin: 0;
 }
