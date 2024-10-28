@@ -9,9 +9,14 @@
     <script src="https://cdn.jsdelivr.net/npm/peerjs@1.3.2/dist/peerjs.min.js"></script>
 </head>
 <body>
+    <!-- Persistent Title at the Top -->
+    <header>
+        <h1 class="title">SempChat</h1>
+    </header>
+
     <!-- Stage 1: Username and PIN Entry -->
     <div id="stage1" class="stage">
-        <h1>Hi,</h1>
+        <h2>Hi,</h2>
         <label for="username">Enter Username:</label>
         <input type="text" id="username" placeholder="Username">
         <label for="pin">Enter PIN:</label>
@@ -21,7 +26,7 @@
 
     <!-- Stage 2: Enter Partner's Username and PIN -->
     <div id="stage2" class="stage hidden">
-        <h1>Almost there!</h1>
+        <h2>Almost there!</h2>
         <label for="partnerUsername">Partner's Username:</label>
         <input type="text" id="partnerUsername" placeholder="Partner's Username">
         <label for="partnerPin">Partner's PIN:</label>
@@ -31,13 +36,18 @@
 
     <!-- Stage 3: Chatbox Session -->
     <div id="stage3" class="stage hidden">
-        <h2 id="partnerStatus">Connected with </h2>
+        <h3 id="partnerStatus">Connected with </h3>
         <div id="chatbox" class="chatbox">
             <!-- Messages will appear here -->
         </div>
         <input type="text" id="messageInput" placeholder="Enter message...">
         <button onclick="sendMessage()">Send</button>
     </div>
+
+    <!-- Persistent Footer at the Bottom -->
+    <footer>
+        <p>Copyright © 2024 Samarth Magdum (HackerSM9)</p>
+    </footer>
 
     <script src="script/app.js"></script>
 </body>
