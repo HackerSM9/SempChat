@@ -3,6 +3,7 @@
 let peer;
 let conn;
 let isWaiting = true;
+let connectionAttempted = false; // New flag to track connection attempts
 
 function goToStage2() {
     document.getElementById("stage1").classList.add("hidden");
@@ -22,9 +23,7 @@ function connectToChat() {
     }
 
     // Initialize Peer with a unique ID for this user
-    peer = new Peer(username + pin, {
-        debug: 3,
-    });
+    peer = new Peer(username + pin, { debug: 3 });
 
     // Display waiting message
     document.getElementById("stage2").classList.add("hidden");
@@ -36,10 +35,38 @@ function connectToChat() {
         console.log("Peer connected with ID:", id);
 
         const partnerId = partnerUsername + partnerPin;
-        conn = peer.connect(partnerId);
+        
+        // Only attempt to connect if no previous attempt has been made
+        if (!connectionAttempted) {
+            connectionAttempted = true; // Mark connection attempt
+            conn = peer.connect(partnerId);
 
-        conn.on("open", () => {
-            console.log("Connected to partner:", partnerId);
+            conn.on("open", () => {
+                console.log("Connected to partner:", partnerId);
+                isWaiting = false;
+                document.getElementById("partnerStatus").textContent = `Connected with ${partnerUsername}`;
+                
+                // Handle incoming messages
+                conn.on("data", (data) => {
+                    displayMessage(data, "partner-message");
+                });
+            });
+
+            conn.on("error", (err) => {
+                console.error("Connection error:", err);
+                if (isWaiting) { // Only display if still waiting for connection
+                    alert("Failed to connect. Please try again.");
+                }
+            });
+        }
+    });
+
+    // Handling incoming connection from partner
+    peer.on("connection", (connection) => {
+        if (!connectionAttempted) {  // Accept connection if no connection attempt made
+            conn = connection;
+            connectionAttempted = true;
+            console.log("Partner connected to you.");
             isWaiting = false;
             document.getElementById("partnerStatus").textContent = `Connected with ${partnerUsername}`;
             
@@ -47,29 +74,14 @@ function connectToChat() {
             conn.on("data", (data) => {
                 displayMessage(data, "partner-message");
             });
-        });
-
-        conn.on("error", (err) => {
-            console.error("Connection error:", err);
-            alert("Failed to connect. Please try again.");
-        });
-    });
-
-    peer.on("connection", (connection) => {
-        conn = connection;
-        console.log("Partner connected to you.");
-        isWaiting = false;
-        document.getElementById("partnerStatus").textContent = `Connected with ${partnerUsername}`;
-        
-        // Handle incoming messages
-        conn.on("data", (data) => {
-            displayMessage(data, "partner-message");
-        });
+        }
     });
 
     peer.on("error", (err) => {
         console.error("PeerJS error:", err);
-        alert("Failed to connect. Please check your connection and try again.");
+        if (isWaiting) { // Avoid showing error after connection established
+            alert("Failed to connect. Please check your connection and try again.");
+        }
     });
 }
 
