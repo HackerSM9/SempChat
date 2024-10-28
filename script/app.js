@@ -2,18 +2,19 @@
 
 let peer;
 let conn;
-let partnerUsername = "";
-let partnerConnected = false;
+let isWaiting = true;
+let connectionEstablished = false;
 
 function goToStage2() {
     document.getElementById("stage1").classList.add("hidden");
     document.getElementById("stage2").classList.remove("hidden");
+    console.log("Moved to Stage 2: Partner Username and PIN Entry");
 }
 
 function connectToChat() {
     const username = document.getElementById("username").value;
     const pin = document.getElementById("pin").value;
-    partnerUsername = document.getElementById("partnerUsername").value;
+    const partnerUsername = document.getElementById("partnerUsername").value;
     const partnerPin = document.getElementById("partnerPin").value;
 
     if (!username || !pin || !partnerUsername || !partnerPin) {
@@ -21,47 +22,65 @@ function connectToChat() {
         return;
     }
 
-    peer = new Peer(username + pin, { debug: 2 });
-    peer.on("open", () => {
+    // Initialize Peer with a unique ID for this user
+    peer = new Peer(username + pin, { debug: 3 });
+
+    // Display waiting message
+    document.getElementById("stage2").classList.add("hidden");
+    document.getElementById("stage3").classList.remove("hidden");
+    document.getElementById("partnerStatus").textContent = `Waiting for ${partnerUsername} to connect...`;
+
+    // Attempt connection to partner's peer ID
+    peer.on("open", (id) => {
+        console.log("Peer connected with ID:", id);
+
         const partnerId = partnerUsername + partnerPin;
         conn = peer.connect(partnerId);
 
-        // Initiate connection when both peers match
         conn.on("open", () => {
-            partnerConnected = true;
-            document.getElementById("stage2").classList.add("hidden");
-            document.getElementById("stage3").classList.remove("hidden");
+            isWaiting = false;
+            connectionEstablished = true;
+            console.log("Connected to partner:", partnerId);
             document.getElementById("partnerStatus").textContent = `Connected with ${partnerUsername}`;
-            
-            // Listen for messages
+
+            // Handle incoming messages
             conn.on("data", (data) => {
                 displayMessage(data, "partner-message");
             });
-
-            // Handle disconnects for clean data reset
-            conn.on("close", () => handleDisconnect());
         });
 
-        conn.on("error", () => {
-            if (!partnerConnected) alert("Failed to connect. Please check credentials and try again.");
+        conn.on("error", (err) => {
+            console.error("Connection error:", err);
+            alert("Failed to connect. Please try again.");
         });
     });
 
     peer.on("connection", (connection) => {
-        conn = connection;
-        partnerConnected = true;
-        document.getElementById("stage2").classList.add("hidden");
-        document.getElementById("stage3").classList.remove("hidden");
-        document.getElementById("partnerStatus").textContent = `Connected with ${partnerUsername}`;
+        if (!connectionEstablished) {
+            conn = connection;
+            console.log("Partner connected to you.");
+            isWaiting = false;
+            connectionEstablished = true;
+            document.getElementById("partnerStatus").textContent = `Connected with ${partnerUsername}`;
 
-        conn.on("data", (data) => displayMessage(data, "partner-message"));
-        conn.on("close", () => handleDisconnect());
+            // Handle incoming messages
+            conn.on("data", (data) => {
+                displayMessage(data, "partner-message");
+            });
+        }
+    });
+
+    peer.on("error", (err) => {
+        console.error("PeerJS error:", err);
+        alert("Failed to connect. Please check your connection and try again.");
     });
 }
 
 function sendMessage() {
     const message = document.getElementById("messageInput").value;
-    if (message.trim() === "" || !conn || !conn.open) return;
+    if (message.trim() === "" || !conn || !conn.open) {
+        return;
+    }
     displayMessage(message, "self-message");
     conn.send(message);
     document.getElementById("messageInput").value = "";
@@ -75,24 +94,8 @@ function displayMessage(message, className) {
     messageElement.scrollIntoView();
 }
 
-// Function to handle disconnects by clearing credentials and messages
-function handleDisconnect() {
-    alert("Partner has disconnected. Exiting chat session.");
-    resetApp();
-}
-
-// Function to clear chat data and reset stages
-function resetApp() {
-    partnerConnected = false;
+// Reset on page reload
+window.onbeforeunload = function () {
     if (conn) conn.close();
     if (peer) peer.disconnect();
-    document.getElementById("chatbox").innerHTML = "";
-    document.getElementById("username").value = "";
-    document.getElementById("pin").value = "";
-    document.getElementById("partnerUsername").value = "";
-    document.getElementById("partnerPin").value = "";
-    document.getElementById("stage3").classList.add("hidden");
-    document.getElementById("stage1").classList.remove("hidden");
-}
-
-window.onbeforeunload = () => resetApp();
+};
