@@ -1,1 +1,1 @@
-# SeChat
+# SempChat
