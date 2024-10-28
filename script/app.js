@@ -2,8 +2,7 @@
 
 let peer;
 let conn;
-let isWaiting = true;
-let connectionAttempted = false; // New flag to track connection attempts
+let isConnected = false;
 
 function goToStage2() {
     document.getElementById("stage1").classList.add("hidden");
@@ -25,63 +24,70 @@ function connectToChat() {
     // Initialize Peer with a unique ID for this user
     peer = new Peer(username + pin, { debug: 3 });
 
-    // Display waiting message
+    // Show waiting message while connecting
     document.getElementById("stage2").classList.add("hidden");
     document.getElementById("stage3").classList.remove("hidden");
     document.getElementById("partnerStatus").textContent = `Waiting for ${partnerUsername} to connect...`;
 
-    // Handle Peer connection events
-    peer.on("open", (id) => {
-        console.log("Peer connected with ID:", id);
+    const partnerId = partnerUsername + partnerPin;
 
-        const partnerId = partnerUsername + partnerPin;
-        
-        // Only attempt to connect if no previous attempt has been made
-        if (!connectionAttempted) {
-            connectionAttempted = true; // Mark connection attempt
-            conn = peer.connect(partnerId);
-
-            conn.on("open", () => {
-                console.log("Connected to partner:", partnerId);
-                isWaiting = false;
-                document.getElementById("partnerStatus").textContent = `Connected with ${partnerUsername}`;
-                
-                // Handle incoming messages
-                conn.on("data", (data) => {
-                    displayMessage(data, "partner-message");
-                });
-            });
-
-            conn.on("error", (err) => {
-                console.error("Connection error:", err);
-                if (isWaiting) { // Only display if still waiting for connection
-                    alert("Failed to connect. Please try again.");
-                }
-            });
+    // Only one user should initiate connection to avoid conflicts
+    setTimeout(() => {
+        if (!isConnected) {
+            initiateConnection(partnerId);
         }
-    });
+    }, 1000);
 
-    // Handling incoming connection from partner
+    // Listen for incoming connection from partner
     peer.on("connection", (connection) => {
-        if (!connectionAttempted) {  // Accept connection if no connection attempt made
-            conn = connection;
-            connectionAttempted = true;
-            console.log("Partner connected to you.");
-            isWaiting = false;
-            document.getElementById("partnerStatus").textContent = `Connected with ${partnerUsername}`;
-            
-            // Handle incoming messages
-            conn.on("data", (data) => {
-                displayMessage(data, "partner-message");
-            });
+        if (!isConnected) {
+            setupConnection(connection, partnerUsername);
         }
     });
 
     peer.on("error", (err) => {
         console.error("PeerJS error:", err);
-        if (isWaiting) { // Avoid showing error after connection established
-            alert("Failed to connect. Please check your connection and try again.");
+        if (!isConnected) {
+            alert("Connection failed. Please check your credentials and try again.");
+            resetApp();
         }
+    });
+}
+
+function initiateConnection(partnerId) {
+    conn = peer.connect(partnerId);
+
+    conn.on("open", () => {
+        console.log("Connection opened with partner:", partnerId);
+        isConnected = true;
+        document.getElementById("partnerStatus").textContent = `Connected with partner`;
+        
+        // Handle incoming messages
+        conn.on("data", (data) => {
+            displayMessage(data, "partner-message");
+        });
+    });
+
+    conn.on("error", (err) => {
+        console.error("Connection error:", err);
+        if (!isConnected) {
+            alert("Failed to connect. Please try again.");
+        }
+    });
+}
+
+function setupConnection(connection, partnerUsername) {
+    conn = connection;
+    isConnected = true;
+    document.getElementById("partnerStatus").textContent = `Connected with ${partnerUsername}`;
+
+    conn.on("data", (data) => {
+        displayMessage(data, "partner-message");
+    });
+
+    conn.on("close", () => {
+        alert("Partner has disconnected.");
+        resetApp();
     });
 }
 
@@ -101,6 +107,19 @@ function displayMessage(message, className) {
     messageElement.textContent = message;
     document.getElementById("chatbox").appendChild(messageElement);
     messageElement.scrollIntoView();
+}
+
+function resetApp() {
+    document.getElementById("stage1").classList.remove("hidden");
+    document.getElementById("stage2").classList.add("hidden");
+    document.getElementById("stage3").classList.add("hidden");
+    document.getElementById("username").value = "";
+    document.getElementById("pin").value = "";
+    document.getElementById("partnerUsername").value = "";
+    document.getElementById("partnerPin").value = "";
+    isConnected = false;
+    if (conn) conn.close();
+    if (peer) peer.disconnect();
 }
 
 window.onbeforeunload = function () {
