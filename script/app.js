@@ -8,7 +8,6 @@ let connectionEstablished = false;
 function goToStage2() {
     document.getElementById("stage1").classList.add("hidden");
     document.getElementById("stage2").classList.remove("hidden");
-    console.log("Moved to Stage 2: Partner Username and PIN Entry");
 }
 
 function connectToChat() {
@@ -22,7 +21,6 @@ function connectToChat() {
         return;
     }
 
-    // Initialize Peer with a unique ID for this user
     peer = new Peer(username + pin, { debug: 3 });
 
     // Display waiting message
@@ -40,39 +38,39 @@ function connectToChat() {
         conn.on("open", () => {
             isWaiting = false;
             connectionEstablished = true;
-            console.log("Connected to partner:", partnerId);
             document.getElementById("partnerStatus").textContent = `Connected with ${partnerUsername}`;
 
-            // Handle incoming messages
             conn.on("data", (data) => {
                 displayMessage(data, "partner-message");
             });
         });
 
-        conn.on("error", (err) => {
-            console.error("Connection error:", err);
-            alert("Failed to connect. Please try again.");
+        conn.on("close", () => {
+            alert("Partner disconnected. Reloading...");
+            location.reload();
         });
     });
 
     peer.on("connection", (connection) => {
         if (!connectionEstablished) {
             conn = connection;
-            console.log("Partner connected to you.");
             isWaiting = false;
             connectionEstablished = true;
             document.getElementById("partnerStatus").textContent = `Connected with ${partnerUsername}`;
 
-            // Handle incoming messages
             conn.on("data", (data) => {
                 displayMessage(data, "partner-message");
+            });
+
+            conn.on("close", () => {
+                alert("Partner disconnected. Reloading...");
+                location.reload();
             });
         }
     });
 
     peer.on("error", (err) => {
         console.error("PeerJS error:", err);
-        alert("Failed to connect. Please check your connection and try again.");
     });
 }
 
