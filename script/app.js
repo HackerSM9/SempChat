@@ -2,18 +2,18 @@
 
 let peer;
 let conn;
-let isConnected = false;
+let partnerUsername = "";
+let partnerConnected = false;
 
 function goToStage2() {
     document.getElementById("stage1").classList.add("hidden");
     document.getElementById("stage2").classList.remove("hidden");
-    console.log("Moved to Stage 2: Partner Username and PIN Entry");
 }
 
 function connectToChat() {
     const username = document.getElementById("username").value;
     const pin = document.getElementById("pin").value;
-    const partnerUsername = document.getElementById("partnerUsername").value;
+    partnerUsername = document.getElementById("partnerUsername").value;
     const partnerPin = document.getElementById("partnerPin").value;
 
     if (!username || !pin || !partnerUsername || !partnerPin) {
@@ -21,81 +21,47 @@ function connectToChat() {
         return;
     }
 
-    // Initialize Peer with a unique ID for this user
-    peer = new Peer(username + pin, { debug: 3 });
+    peer = new Peer(username + pin, { debug: 2 });
+    peer.on("open", () => {
+        const partnerId = partnerUsername + partnerPin;
+        conn = peer.connect(partnerId);
 
-    // Show waiting message while connecting
-    document.getElementById("stage2").classList.add("hidden");
-    document.getElementById("stage3").classList.remove("hidden");
-    document.getElementById("partnerStatus").textContent = `Waiting for ${partnerUsername} to connect...`;
+        // Initiate connection when both peers match
+        conn.on("open", () => {
+            partnerConnected = true;
+            document.getElementById("stage2").classList.add("hidden");
+            document.getElementById("stage3").classList.remove("hidden");
+            document.getElementById("partnerStatus").textContent = `Connected with ${partnerUsername}`;
+            
+            // Listen for messages
+            conn.on("data", (data) => {
+                displayMessage(data, "partner-message");
+            });
 
-    const partnerId = partnerUsername + partnerPin;
+            // Handle disconnects for clean data reset
+            conn.on("close", () => handleDisconnect());
+        });
 
-    // Only one user should initiate connection to avoid conflicts
-    setTimeout(() => {
-        if (!isConnected) {
-            initiateConnection(partnerId);
-        }
-    }, 1000);
-
-    // Listen for incoming connection from partner
-    peer.on("connection", (connection) => {
-        if (!isConnected) {
-            setupConnection(connection, partnerUsername);
-        }
-    });
-
-    peer.on("error", (err) => {
-        console.error("PeerJS error:", err);
-        if (!isConnected) {
-            alert("Connection failed. Please check your credentials and try again.");
-            resetApp();
-        }
-    });
-}
-
-function initiateConnection(partnerId) {
-    conn = peer.connect(partnerId);
-
-    conn.on("open", () => {
-        console.log("Connection opened with partner:", partnerId);
-        isConnected = true;
-        document.getElementById("partnerStatus").textContent = `Connected with partner`;
-        
-        // Handle incoming messages
-        conn.on("data", (data) => {
-            displayMessage(data, "partner-message");
+        conn.on("error", () => {
+            if (!partnerConnected) alert("Failed to connect. Please check credentials and try again.");
         });
     });
 
-    conn.on("error", (err) => {
-        console.error("Connection error:", err);
-        if (!isConnected) {
-            alert("Failed to connect. Please try again.");
-        }
-    });
-}
+    peer.on("connection", (connection) => {
+        conn = connection;
+        partnerConnected = true;
+        document.getElementById("stage2").classList.add("hidden");
+        document.getElementById("stage3").classList.remove("hidden");
+        document.getElementById("partnerStatus").textContent = `Connected with ${partnerUsername}`;
 
-function setupConnection(connection, partnerUsername) {
-    conn = connection;
-    isConnected = true;
-    document.getElementById("partnerStatus").textContent = `Connected with ${partnerUsername}`;
-
-    conn.on("data", (data) => {
-        displayMessage(data, "partner-message");
-    });
-
-    conn.on("close", () => {
-        alert("Partner has disconnected.");
-        resetApp();
+        conn.on("data", (data) => displayMessage(data, "partner-message"));
+        conn.on("close", () => handleDisconnect());
     });
 }
 
 function sendMessage() {
     const message = document.getElementById("messageInput").value;
-    if (message.trim() === "" || !conn || !conn.open) {
-        return;
-    }
+    if (message.trim() === "" || !conn || !conn.open) return;
     displayMessage(message, "self-message");
     conn.send(message);
     document.getElementById("messageInput").value = "";
@@ -109,20 +75,24 @@ function displayMessage(message, className) {
     messageElement.scrollIntoView();
 }
 
+// Function to handle disconnects by clearing credentials and messages
+function handleDisconnect() {
+    alert("Partner has disconnected. Exiting chat session.");
+    resetApp();
+}
+
+// Function to clear chat data and reset stages
 function resetApp() {
-    document.getElementById("stage1").classList.remove("hidden");
-    document.getElementById("stage2").classList.add("hidden");
-    document.getElementById("stage3").classList.add("hidden");
+    partnerConnected = false;
+    if (conn) conn.close();
+    if (peer) peer.disconnect();
+    document.getElementById("chatbox").innerHTML = "";
     document.getElementById("username").value = "";
     document.getElementById("pin").value = "";
     document.getElementById("partnerUsername").value = "";
     document.getElementById("partnerPin").value = "";
-    isConnected = false;
-    if (conn) conn.close();
-    if (peer) peer.disconnect();
+    document.getElementById("stage3").classList.add("hidden");
+    document.getElementById("stage1").classList.remove("hidden");
 }
 
-window.onbeforeunload = function () {
-    if (conn) conn.close();
-    if (peer) peer.disconnect();
-};
+window.onbeforeunload = () => resetApp();
