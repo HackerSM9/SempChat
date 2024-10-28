@@ -46,7 +46,7 @@ function connectToChat() {
         });
 
         conn.on("close", () => {
-            alert("Partner disconnected. Reloading...");
+            alert(`${partnerUsername} exits the Chat. Click OK to New Chat!`);
             location.reload();
         });
     });
@@ -63,7 +63,7 @@ function connectToChat() {
             });
 
             conn.on("close", () => {
-                alert("Partner disconnected. Reloading...");
+                alert(`${partnerUsername} exits the Chat. Click OK to New Chat!`);
                 location.reload();
             });
         }
