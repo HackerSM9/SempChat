@@ -4,8 +4,40 @@ body {
     color: #e1e1e1;
     font-family: Arial, sans-serif;
     margin: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
+header, footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #121212;
+}
+
+.title {
+    color: #6a0dad;
+    font-size: 2em;
+    margin: 0;
+}
+
+footer p {
+    color: #6a0dad;
+    font-size: 1em;
+    margin: 0;
+}
+
+/* Main content area */
+.stage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    text-align: center;
+}
+
+/* Input and Button Styling */
 input, button {
     background: #2c2c2c;
     border: none;
@@ -21,20 +53,6 @@ button {
 
 button:hover {
     background-color: #6a0dad; /* Purple highlight */
-}
-
-/* Stage and Animation */
-.stage {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    text-align: center;
-}
-
-.hidden {
-    display: none;
 }
 
 /* Chatbox Styling */
@@ -83,4 +101,8 @@ button:hover {
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
+}
+
+.hidden {
+    display: none;
 }
