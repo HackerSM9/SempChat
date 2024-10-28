@@ -1,3 +1,4 @@
+@import url("https://hackersm9.github.io/Fonts/fonts.css");
 /* Reset and Dark Mode */
 body {
     background-color: #121212;
@@ -16,7 +17,8 @@ header, footer {
 }
 
 .title {
-    color: #bb86fc; /* Luminous purple */
+    color: #bb86fc;
+    font-family: Agustina;/* Luminous purple */
     font-size: 2em;
     margin: 0;
 }
