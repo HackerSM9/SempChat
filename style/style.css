@@ -1,6 +1,6 @@
 @import url("https://hackersm9.github.io/Fonts/fonts.css");
 /* Reset and Dark Mode */
-body {
+body,html {
     background-color: #121212;
     color: #e1e1e1;
     font-family: Arial, sans-serif;
@@ -17,10 +17,9 @@ header, footer {
 }
 
 .title {
-    color: #bb86fc;
+    color: #7417FF;
     font-family: Agustina;/* Luminous purple */
     font-size: 2em;
-    margin: 0;
 }
 
 footer p {
@@ -106,4 +105,27 @@ button:hover {
 
 .hidden {
     display: none;
+}
+
+hr {
+    width: 50%;
+    height: 2px;
+    background: #8a2be2; /* Violet color */
+    margin: 10px auto;
+    border: none;
+    border-radius: 10px; /* Round the edges */
+    position: relative;
+    animation: subtleGlow 3s infinite;
+}
+
+@keyframes subtleGlow {
+    0% {
+        box-shadow: 0 0 3px #8a2be2, 0 0 6px #8a2be2, 0 0 9px #8a2be2;
+    }
+    50% {
+        box-shadow: 0 0 4px #8a2be2, 0 0 8px #8a2be2, 0 0 12px #8a2be2;
+    }
+    100% {
+        box-shadow: 0 0 3px #8a2be2, 0 0 6px #8a2be2, 0 0 9px #8a2be2;
+    }
 }
