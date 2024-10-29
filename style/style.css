@@ -24,9 +24,8 @@ header, footer {
 }
 
 footer p {
-    color: #b3b3b3; /* Light grey color */
-    font-size: 1em;
-    margin: 0;
+    color: grey; /* grey color */
+    font-size: 14px;
 }
 
 /* Main content area */
