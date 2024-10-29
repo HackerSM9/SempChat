@@ -17,7 +17,7 @@ header, footer {
 }
 
 .title {
-    color: #7417FF;
+    color: #8533ff;
     font-family: Agustina;/* Luminous purple */
     font-size: 2em;
 }
@@ -110,7 +110,7 @@ button:hover {
 hr {
     width: 50%;
     height: 2px;
-    background: #8a2be2; /* Violet color */
+    background: #7417ca; /* Violet color */
     margin: 10px auto;
     border: none;
     border-radius: 10px; /* Round the edges */
