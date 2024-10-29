@@ -1,6 +1,6 @@
 @import url("https://hackersm9.github.io/Fonts/fonts.css");
 /* Reset and Dark Mode */
-body,html {
+body, html {
     background-color: #121212;
     color: #e1e1e1;
     font-family: Arial, sans-serif;
@@ -17,21 +17,21 @@ header, footer {
 }
 
 .icon-svg {
-    width: 24px; /* Adjust size as needed */
+    width: 24px;
     height: 24px;
-    fill: #bb86fc; /* Same luminous color as the title */
+    fill: #bb86fc;
     vertical-align: middle;
-    margin-right: 8px; /* Space between icon and title */
+    margin-right: 8px;
 }
 
 .title {
     color: #8533ff;
-    font-family: Agustina;/* Luminous purple */
+    font-family: Agustina;
     font-size: 2em;
 }
 
 footer p {
-    color: grey; /* grey color */
+    color: grey;
     font-size: 14px;
 }
 
@@ -60,7 +60,7 @@ button {
 }
 
 button:hover {
-    background-color: #6a0dad; /* Purple highlight */
+    background-color: #6a0dad;
 }
 
 /* Chatbox Styling */
@@ -118,10 +118,10 @@ button:hover {
 hr {
     width: 50%;
     height: 2px;
-    background: #7417ca; /* Violet color */
+    background: #7417ca;
     margin: 10px auto;
     border: none;
-    border-radius: 10px; /* Round the edges */
+    border-radius: 10px;
     position: relative;
     animation: subtleGlow 3s infinite;
 }
@@ -136,4 +136,9 @@ hr {
     100% {
         box-shadow: 0 0 3px #8a2be2, 0 0 6px #8a2be2, 0 0 9px #8a2be2;
     }
+}
+
+/* Icon Styling */
+button i {
+    color: #e1e1e1;
 }
