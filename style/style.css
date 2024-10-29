@@ -16,6 +16,14 @@ header, footer {
     background-color: #121212;
 }
 
+.icon-svg {
+    width: 24px; /* Adjust size as needed */
+    height: 24px;
+    fill: #bb86fc; /* Same luminous color as the title */
+    vertical-align: middle;
+    margin-right: 8px; /* Space between icon and title */
+}
+
 .title {
     color: #8533ff;
     font-family: Agustina;/* Luminous purple */
