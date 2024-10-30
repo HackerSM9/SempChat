@@ -80,7 +80,7 @@ button:hover {
 .chatbox {
     border: 1px solid #6a0dad;
     width: 90%;
-    height: 80vh;
+    height: 50vh;
     overflow-y: auto;
     margin: 20px 0;
     padding: 10px;
