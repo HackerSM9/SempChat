@@ -6,6 +6,15 @@ let isWaiting = true;
 let connectionEstablished = false;
 
 function goToStage2() {
+    const username = document.getElementById("username").value;
+    const pin = document.getElementById("pin").value;
+
+    // Validate username and PIN before moving to Stage 2
+    if (!username || pin.length < 4 || pin.length > 6) {
+        alert("Please enter a valid username and a PIN that is between 4 and 6 digits.");
+        return;
+    }
+    
     document.getElementById("stage1").classList.add("hidden");
     document.getElementById("stage2").classList.remove("hidden");
 }
