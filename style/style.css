@@ -27,7 +27,8 @@ header, footer {
 .title {
     color: #8533ff;
     font-family: Agustina;
-    font-size: 2em;
+    font-size: 250%;
+    margin: 0;
 }
 
 footer p {
@@ -46,28 +47,40 @@ footer p {
 }
 
 /* Input and Button Styling */
-input, button {
+input {
     background: #2c2c2c;
     border: none;
     color: #e1e1e1;
+    border-radius: 5px;
     padding: 10px;
     margin: 10px 0;
 }
 
+input:focus {
+  border: #8a2be2;
+}
+
 button {
+    background: #2c2c2c;
+    border: none;
+    color: #e1e1e1;
+    border-radius: 50px;
+    padding: 12px;
+    margin: 10px 0;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
 button:hover {
     background-color: #6a0dad;
+    animation: subtleGlow 3s infinite;
 }
 
 /* Chatbox Styling */
 .chatbox {
     border: 1px solid #6a0dad;
-    width: 80%;
-    height: 60vh;
+    width: 90%;
+    height: 80vh;
     overflow-y: auto;
     margin: 20px 0;
     padding: 10px;
@@ -141,4 +154,8 @@ hr {
 /* Icon Styling */
 button i {
     color: #e1e1e1;
+}
+
+#send-button {
+  display: inline;
 }
