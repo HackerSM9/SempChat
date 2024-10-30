@@ -104,3 +104,15 @@ document.getElementById("message-input").addEventListener("keypress", function(e
     document.getElementById("send-button").click();
   }
 });
+
+// Disable right-click
+document.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+});
+
+// Disable Ctrl+C and Ctrl+A
+document.addEventListener('keydown', function(e) {
+    if (e.ctrlKey && (e.key === 'c' || e.key === 'a')) {
+        e.preventDefault();
+    }
+});
