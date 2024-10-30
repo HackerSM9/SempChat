@@ -96,10 +96,26 @@ button:hover {
     flex-direction: column;
 }
 
+/* Input and Button Container Styling */
+.input-container {
+    display: flex;
+    align-items: center;
+    width: 90%;
+    margin: 10px 0;
+}
+
 #messageInput {
-    width: 70%;
-    display: inline-block;
-    vertical-align: middle;
+    flex: 1;
+    background: #2c2c2c;
+    border: none;
+    color: #e1e1e1;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 0;
+}
+
+#messageInput:focus {
+    border: #8a2be2;
 }
 
 /* Reload/Exit Button Styling */
@@ -107,11 +123,14 @@ button:hover {
     background: #4a4a4a;
     border: none;
     color: #e1e1e1;
-    border-radius: 50px;
+    border-radius: 50%;
     padding: 12px;
-    margin-right: 5px;
+    margin-left: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 #exit-button:hover {
@@ -120,10 +139,13 @@ button:hover {
 
 /* Send Button Styling */
 #send-button {
-    display: inline-block;
-    vertical-align: middle;
     background-color: #6a0dad;
     margin-left: 5px;
+    border-radius: 50%;
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 #send-button i {
