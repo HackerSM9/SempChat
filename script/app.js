@@ -16,8 +16,13 @@ function connectToChat() {
     const partnerUsername = document.getElementById("partnerUsername").value;
     const partnerPin = document.getElementById("partnerPin").value;
 
+    // PIN validation
     if (!username || !pin || !partnerUsername || !partnerPin) {
         alert("Please fill in all fields.");
+        return;
+    }
+    if (pin.length < 4 || pin.length > 6 || partnerPin.length < 4 || partnerPin.length > 6) {
+        alert("PIN must be between 4 and 6 digits.");
         return;
     }
 
