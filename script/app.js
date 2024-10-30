@@ -117,3 +117,8 @@ document.addEventListener('keydown', function(e) {
         e.preventDefault();
     }
 });
+
+// Exit Chat Button Code
+function exitChat() {
+    location.reload();
+}
