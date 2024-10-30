@@ -11,7 +11,7 @@ function goToStage2() {
 
     // Validate username and PIN before moving to Stage 2
     if (!username || pin.length < 4 || pin.length > 6) {
-        alert("Please enter a valid username and a PIN that is between 4 and 6 digits.");
+        alert("Username and 4-6 Digit Pin is Required.");
         return;
     }
     
