@@ -1,5 +1,12 @@
 @import url("https://hackersm9.github.io/Fonts/fonts.css");
 /* Reset and Dark Mode */
+body {
+    user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    -moz-user-select: none;
+}
+
 body, html {
     background-color: #121212;
     color: #e1e1e1;
