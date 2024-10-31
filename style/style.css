@@ -16,32 +16,60 @@ body, html {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    justify-content: center;
+    align-items: center;
 }
 
-header, footer {
-    text-align: center;
+/* Header styling - Icon and Title side-by-side */
+header {
+    padding: 5px;
+    margin: 10px 0;
+    text-alignment: center;
+    justify-content: center;/* Center icon and title */
     padding: 10px;
     background-color: #121212;
 }
 
 .icon-svg {
-    width: 24px;
-    height: 24px;
+    width: 50px;
+    height: 50px;
     fill: #bb86fc;
-    vertical-align: middle;
-    margin-right: 8px;
+    margin: -15px 0;
+    display: inline-block;
 }
 
 .title {
     color: #8533ff;
     font-family: Agustina;
-    font-size: 250%;
-    margin: 0;
+    font-size: 2.5em;
+    margin: -10px 0;
+    padding-right: 15px;
+    display: inline-block; /* Keep title and icon inline */
+}
+
+/* Updated styling for <hr> */
+hr {
+    width: 70%;
+    height: 2px;
+    background: #7417ca;
+    margin: 15px 0;
+    border: none;
+    border-radius: 10px;
+    animation: subtleGlow 3s infinite;
+}
+
+
+/* Footer styling */
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #121212;
 }
 
 footer p {
     color: grey;
     font-size: 14px;
+    margin: 0;
 }
 
 /* Main content area */
@@ -52,6 +80,8 @@ footer p {
     justify-content: center;
     flex: 1;
     text-align: center;
+    width: 100%;
+    max-width: 500px;
 }
 
 /* Input and Button Styling */
@@ -62,10 +92,11 @@ input {
     border-radius: 5px;
     padding: 10px;
     margin: 10px 0;
+    text-align: center;
 }
 
 input:focus {
-    border: #8a2be2;
+    border: 1px solid #8a2be2;
 }
 
 button {
@@ -77,6 +108,9 @@ button {
     margin: 10px 0;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 button:hover {
@@ -88,12 +122,15 @@ button:hover {
 .chatbox {
     border: 1px solid #6a0dad;
     width: 90%;
+    max-width: 500px;
     height: 50vh;
     overflow-y: auto;
     margin: 20px 0;
     padding: 10px;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
 }
 
 /* Input and Button Container Styling */
@@ -101,6 +138,7 @@ button:hover {
     display: flex;
     align-items: center;
     width: 90%;
+    max-width: 500px;
     margin: 10px 0;
 }
 
@@ -112,10 +150,11 @@ button:hover {
     border-radius: 5px;
     padding: 10px;
     margin: 0;
+    text-align: center;
 }
 
 #messageInput:focus {
-    border: #8a2be2;
+    border: 1px solid #8a2be2;
 }
 
 /* Reload/Exit Button Styling */
@@ -186,17 +225,6 @@ button:hover {
 
 .hidden {
     display: none;
-}
-
-hr {
-    width: 50%;
-    height: 2px;
-    background: #7417ca;
-    margin: 10px auto;
-    border: none;
-    border-radius: 10px;
-    position: relative;
-    animation: subtleGlow 3s infinite;
 }
 
 @keyframes subtleGlow {
