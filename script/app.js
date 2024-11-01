@@ -35,7 +35,8 @@ function connectToChat() {
         return;
     }
 
-    peer = new Peer(username + pin, { debug: 3 });
+    const uniqueCode = "SM9"; // Unique Code for connections
+    peer = new Peer(uniqueCode + username + pin, { debug: 3 }); // Prepend unique Code
 
     // Display waiting message
     document.getElementById("stage2").classList.add("hidden");
@@ -46,7 +47,7 @@ function connectToChat() {
     peer.on("open", (id) => {
         console.log("Peer connected with ID:", id);
 
-        const partnerId = partnerUsername + partnerPin;
+        const partnerId = uniqueCode + partnerUsername + partnerPin; // Prepend unique Code
         conn = peer.connect(partnerId);
 
         conn.on("open", () => {
@@ -143,3 +144,8 @@ document.addEventListener('keydown', function(e) {
         e.preventDefault();
     }
 });
+
+//Exits the ChatBox Session.
+function reloadChat() {
+    location.reload();
+}
