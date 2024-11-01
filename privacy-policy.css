@@ -24,7 +24,7 @@ header {
 
 h1 {
     font-size: 1.8rem;
-    color: #b0bec5; /* Subtle color for the title */
+    color: #8533ff; /* Subtle color for the title */
     margin-bottom: 10px;
 }
 
@@ -43,7 +43,7 @@ section {
 }
 
 h2 {
-    color: #90a4ae; /* Soft blue-gray for section headings */
+    color: #c299ff; /* Soft blue-gray for section headings */
     font-size: 1.4rem;
     margin-top: 20px;
     margin-bottom: 10px;
