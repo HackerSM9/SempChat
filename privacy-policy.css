@@ -1,6 +1,5 @@
 /* privacy-policy.css */
 
-/* Reset and general styling */
 * {
     margin: 0;
     padding: 0;
@@ -9,14 +8,14 @@
 }
 
 body {
-    background-color: #1a1a2e; /* Dark background */
-    color: #eaeaea; /* Light text color */
+    background-color: #121212; /* Very dark background for privacy and professionalism */
+    color: #f5f5f5; /* Light text for readability */
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
     padding: 20px;
     min-height: 100vh;
-    text-align: center; /* Center-align text for smaller screens */
+    text-align: center;
 }
 
 header {
@@ -24,54 +23,59 @@ header {
 }
 
 h1 {
-    color: #8a2be2; /* Purple title color */
-    font-size: 2rem;
+    font-size: 1.8rem;
+    color: #b0bec5; /* Subtle color for the title */
+    margin-bottom: 10px;
+}
+
+p {
+    color: #cfd8dc; /* Soft color for secondary text */
 }
 
 section {
     max-width: 800px;
+    background: #1e1e1e; /* Slightly lighter dark background */
     padding: 20px;
-    background: #333;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    text-align: left; /* Left-align main content for readability */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: left; /* Left-align main content for easy reading */
+    margin-bottom: 20px;
 }
 
 h2 {
-    color: #8a2be2; /* Purple section headings */
-    margin: 20px 0 10px;
-    font-size: 1.5rem;
-}
-
-p {
-    line-height: 1.6;
-    font-size: 1rem;
-    margin-bottom: 15px;
+    color: #90a4ae; /* Soft blue-gray for section headings */
+    font-size: 1.4rem;
+    margin-top: 20px;
+    margin-bottom: 10px;
 }
 
 a {
-    color: #8a2be2;
+    color: #8ab4f8; /* Light blue for links */
+    text-decoration: none;
+}
+
+a:hover {
     text-decoration: underline;
 }
 
 footer {
-    margin-top: 20px;
-    color: #eaeaea;
+    color: #cfd8dc;
     font-size: 0.9rem;
     text-align: center; /* Center-align footer content */
+    margin-top: 20px;
 }
 
-/* Responsive adjustments */
+/* Mobile adjustments */
 @media (max-width: 600px) {
     section {
         padding: 15px;
     }
 
     h1 {
-        font-size: 1.8rem;
+        font-size: 1.6rem;
     }
 
     h2 {
-        font-size: 1.3rem;
+        font-size: 1.2rem;
     }
 }
