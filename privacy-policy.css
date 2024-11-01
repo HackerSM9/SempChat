@@ -1,5 +1,6 @@
 /* privacy-policy.css */
 
+/* Reset and general styling */
 * {
     margin: 0;
     padding: 0;
@@ -15,10 +16,10 @@ body {
     align-items: center;
     padding: 20px;
     min-height: 100vh;
+    text-align: center; /* Center-align text for smaller screens */
 }
 
 header {
-    text-align: center;
     margin-bottom: 20px;
 }
 
@@ -33,6 +34,7 @@ section {
     background: #333;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    text-align: left; /* Left-align main content for readability */
 }
 
 h2 {
@@ -53,8 +55,23 @@ a {
 }
 
 footer {
-    text-align: center;
     margin-top: 20px;
     color: #eaeaea;
     font-size: 0.9rem;
+    text-align: center; /* Center-align footer content */
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    section {
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    h2 {
+        font-size: 1.3rem;
+    }
 }
