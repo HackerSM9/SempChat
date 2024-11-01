@@ -106,6 +106,18 @@ function displayMessage(message, className) {
     messageElement.scrollIntoView();
 }
 
+
+function exitChat() {
+    // Clear session storage
+    sessionStorage.clear();
+    // Clear cookies
+    document.cookie.split(";").forEach(function(cookie) {
+        document.cookie = cookie.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date(0).toUTCString() + ";path=/");
+    });
+    // Reload the page
+    location.reload();
+}
+
 // Reset on page reload
 window.onbeforeunload = function () {
     if (conn) conn.close();
