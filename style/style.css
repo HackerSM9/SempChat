@@ -66,7 +66,7 @@ footer {
     background-color: #121212;
 }
 
-footer p {
+footer p, footer a {
     color: grey;
     font-size: 14px;
     margin: 0;
