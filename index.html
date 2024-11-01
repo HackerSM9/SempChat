@@ -91,7 +91,7 @@
             <!-- Messages will appear here -->
         </div>
         <div class="input-container">
-            <button id="exit-button" onclick="exitChat()"><i class="fa-solid fa-rotate-left"></i></button>
+            <button id="exit-button" onclick="exitChat();reloadChat()"><i class="fa-solid fa-rotate-left"></i></button>
             <input type="text" id="messageInput" placeholder="Enter message...">
             <button id="send-button" onclick="sendMessage()"><i class="fa-solid fa-paper-plane"></i></button>
         </div>
@@ -107,7 +107,7 @@
     <script src="script/app.js"></script>
     <script>
      // Exit Chat Button Code
-        function exitChat() {
+        function reloadChat() {
             location.reload();
         }
     </script>
