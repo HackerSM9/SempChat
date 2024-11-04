@@ -41,6 +41,8 @@ header {
 .title {
     color: #8533ff;
     font-family: Agustina;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
     font-size: 2.5em;
     margin: -10px 0;
     padding-right: 15px;
@@ -80,6 +82,43 @@ footer p, footer a {
     justify-content: center;
     flex: 1;
     text-align: center;
+}
+
+label {
+  align-self: flex-start;
+}
+
+.info {
+  color: grey;
+  align-self: flex-end;
+  padding-bottom: 8px;
+  margin: -10px;
+  margin-top: -18px;
+}
+
+/* General pop-up message styling for desktop */
+.popup-message {
+  position: absolute;
+  background-color: #1f004d;
+  color: #c299ff;
+  padding: 12px 16px; /* Larger padding */
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px rgba(128, 0, 128, 0.5);
+  font-size: 14px; /* Slightly larger text */
+  white-space: nowrap;
+  z-index: 10;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+
+/* Mobile-friendly adjustments */
+@media (max-width: 600px) {
+  .popup-message {
+    max-width: 90vw;
+    padding: 10px 14px; /* Adjusted for mobile */
+    font-size: 13px; /* Increased font size for mobile */
+    word-wrap: break-word;
+  }
 }
 
 /* Input and Button Styling */
@@ -184,7 +223,11 @@ button:hover {
 }
 
 #partnerStatus {
-    color: #6a0dad;
+    background-color: #6a0dad;
+    padding: 10px;
+    margin: 0;
+    border-radius: 20px;
+    color: #fff;
     font-weight: bold;
     animation: fadeIn 1s;
 }
