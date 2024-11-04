@@ -78,42 +78,41 @@ Loading Animation: SempChat displays a 1-second loading animation when starting 
 
 ## Technical Details 💻
 
-Tech Stack:
+### Tech Stack:
 
-Frontend: HTML, CSS, JavaScript.
+- Frontend: HTML, CSS, JavaScript.
 
-Backend: Javascript.
+- Backend: Javascript.
 
-Hosting: GitHub Pages at hackersm9.github.io/SempChat
+- Hosting: GitHub Pages at hackersm9.github.io/SempChat
 
-
-Security: SempChat uses a transient connection that doesn’t save or log chat data.
+- Security: SempChat uses a transient connection that doesn’t save or log chat data.
 
 
 ## Developer Information 👨🏻‍💻
 
-Creator: Samarth Magdum (HackerSM9)
-App Name: SempChat
-Design Inspiration: Minimalist, transient messaging with an emphasis on security and privacy.
+- Creator: Samarth Magdum (HackerSM9)
+- App Name: SempChat
+- Design Inspiration: Minimalist, transient messaging with an emphasis on security and privacy.
 
 ## Special Features 💫:
 
-A circular Send button with a hover effect.
+- A circular Send button with a hover effect.
 
-A Show PIN option for visibility.
+- A Show PIN option for visibility.
 
-Purple Gradient Animations to enhance the user experience.
+- Purple Gradient Animations to enhance the user experience.
 
 
 ## Future Enhancements 🛫
 
-While SempChat is currently a straightforward and secure chat platform, potential future improvements may include:
+1. While SempChat is currently a straightforward and secure chat platform, potential future improvements may include:
 
-Enhanced Error Handling for connectivity issues
+2. Enhanced Error Handling for connectivity issues
 
-Expanded Device Compatibility for smoother connections across platforms
+3. Expanded Device Compatibility for smoother connections across platforms
 
-More Customizable Themes based on user feedback.
+4. More Customizable Themes based on user feedback.
 
 
 ---
