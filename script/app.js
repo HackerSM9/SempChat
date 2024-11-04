@@ -149,3 +149,68 @@ document.addEventListener('keydown', function(e) {
 function reloadChat() {
     location.reload();
 }
+
+// Function to show pop-up message on info icon click
+function showPopupMessage(event, message) {
+  // Remove any existing pop-up message to avoid multiple pop-ups
+  const existingPopup = document.querySelector(".popup-message");
+  if (existingPopup) existingPopup.remove();
+
+  // Create a new pop-up div
+  const popup = document.createElement("div");
+  popup.className = "popup-message";
+  popup.textContent = message;
+
+  // Append the popup to the body to position it later
+  document.body.appendChild(popup);
+  const rect = event.target.getBoundingClientRect();
+
+  // Check the viewport width and position accordingly
+  const isMobile = window.innerWidth <= 600;
+  if (isMobile) {
+    // Position the pop-up above the icon for mobile
+    popup.style.left = `${Math.min(rect.left + window.scrollX, window.innerWidth - popup.offsetWidth - 10)}px`;
+    popup.style.top = `${rect.top + window.scrollY - popup.offsetHeight - 10}px`;
+  } else {
+    // Position near the icon for desktop
+    popup.style.left = `${rect.left + window.scrollX + 20}px`;
+    popup.style.top = `${rect.top + window.scrollY - 10}px`;
+  }
+
+  // Show the pop-up
+  setTimeout(() => {
+    popup.style.opacity = 1;
+  }, 10);
+
+  // Close the pop-up when clicking outside of it
+  document.addEventListener("click", function hidePopup(e) {
+    if (!popup.contains(e.target) && e.target !== event.target) {
+      popup.remove();
+      document.removeEventListener("click", hidePopup);
+    }
+  });
+}
+
+// Add event listeners for info icons
+document.querySelectorAll(".info").forEach((icon, index) => {
+  const messages = [
+    "Create a unique username for security purposes.",
+    "Create a unique PIN (4-6 digits) for secure access.",
+    "Enter Same Username as your Partner created",
+    "Enter Same Pin as your Partner created"
+  ];
+  icon.addEventListener("click", (event) => showPopupMessage(event, messages[index]));
+});
+
+
+// Pin Restriction for User
+document.getElementById("pin").addEventListener("input", function(e) {
+    // Replace any non-numeric characters with an empty string
+    e.target.value = e.target.value.replace(/\D/g, "");
+});
+
+// Pin Restriction for Partner
+document.getElementById("partnerPin").addEventListener("input", function(e) {
+    // Replace any non-numeric characters with an empty string
+    e.target.value = e.target.value.replace(/\D/g, "");
+});
