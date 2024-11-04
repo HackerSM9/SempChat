@@ -67,9 +67,10 @@
     <!-- Stage 1: Username and PIN Entry -->
     <div id="stage1" class="stage">
         <h1>Hi,</h1>
-        <label for="username">Enter Username:</label>
+        <label for="username"><i class="fas fa-user"></i> Enter Username:</label><i class="fas fa-info-circle info"></i>
         <input type="text" id="username" placeholder="Username" required>
-        <label for="pin">Enter PIN:</label>
+      <br>
+        <label for="pin"><i class="fas fa-lock"></i> Enter PIN:</label><i class="fas fa-info-circle info"></i>
         <input type="password" id="pin"placeholder="4-6 digit PIN" pattern="\d{4,6}" minlength="4" maxlength="6" required>
         <button onclick="goToStage2()">Next</button>
     </div>
@@ -77,10 +78,11 @@
     <!-- Stage 2: Enter Partner's Username and PIN -->
     <div id="stage2" class="stage hidden">
         <h1>Almost there!</h1>
-        <label for="partnerUsername">Partner's Username:</label>
+        <label for="partnerUsername"><i class="fas fa-user"></i> Partner's Username:</label><i class="fas fa-info-circle info"></i>
         <input type="text" id="partnerUsername" placeholder="Partner's Username" required>
-        <label for="partnerPin">Partner's PIN:</label>
-        <input type="password" id="partnerPin" placeholder="4-6 digit PIN" pattern="\d{4,6}" minlength="4" maxlength="6" required>
+      <br>
+        <label for="partnerPin"><i class="fas fa-lock"></i> Partner's PIN:</label><i class="fas fa-info-circle info"></i>
+        <input type="password" id="partnerPin" placeholder="4-6 digit PIN"  minlength="4" maxlength="6" required>
         <button onclick="connectToChat()">Enter Chat</button>
     </div>
 
@@ -108,3 +110,4 @@
     
 </body>
 </html>
+
