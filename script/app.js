@@ -4,19 +4,6 @@ let peer;
 let conn;
 let isWaiting = true;
 let connectionEstablished = false;
-const uniqueCode = "SM9"; // Unique Code for connections
-let retryAttempts = 0; // Counter for reconnection attempts
-
-// Step 1: Set up a TURN server and configure peer connection
-peer = new Peer({
-    config: {
-        iceServers: [
-            { urls: 'stun:stun.l.google.com:19302' }, // Public STUN server
-            { urls: 'turn:your.turn.server', username: 'user', credential: 'pass' } // Custom TURN server details
-        ]
-    },
-    debug: 3
-});
 
 function goToStage2() {
     const username = document.getElementById("username").value;
@@ -38,6 +25,7 @@ function connectToChat() {
     const partnerUsername = document.getElementById("partnerUsername").value;
     const partnerPin = document.getElementById("partnerPin").value;
 
+    // PIN validation
     if (!username || !pin || !partnerUsername || !partnerPin) {
         alert("Please fill in all fields.");
         return;
@@ -47,73 +35,58 @@ function connectToChat() {
         return;
     }
 
-    // Create peer ID with unique code and user credentials
-    const peerId = uniqueCode + username + pin;
-    peer = new Peer(peerId, { debug: 3 });
-    
-    // Event listener for connection status
+    const uniqueCode = "SM9"; // Unique Code for connections
+    peer = new Peer(uniqueCode + username + pin, { debug: 3 }); // Prepend unique Code
+
+    // Display waiting message
+    document.getElementById("stage2").classList.add("hidden");
+    document.getElementById("stage3").classList.remove("hidden");
+    document.getElementById("partnerStatus").textContent = `Waiting for ${partnerUsername} to connect...`;
+
+    // Attempt connection to partner's peer ID
     peer.on("open", (id) => {
         console.log("Peer connected with ID:", id);
-        attemptConnectionToPartner();
+
+        const partnerId = uniqueCode + partnerUsername + partnerPin; // Prepend unique Code
+        conn = peer.connect(partnerId);
+
+        conn.on("open", () => {
+            isWaiting = false;
+            connectionEstablished = true;
+            document.getElementById("partnerStatus").textContent = `Connected with ${partnerUsername}`;
+
+            conn.on("data", (data) => {
+                displayMessage(data, "partner-message");
+            });
+        });
+
+        conn.on("close", () => {
+            alert(`${partnerUsername} exits the Chat. Click OK to New Chat!`);
+            location.reload();
+        });
     });
 
-    // Step 2: Handle incoming connection requests
     peer.on("connection", (connection) => {
         if (!connectionEstablished) {
-            setupConnection(connection, partnerUsername);
+            conn = connection;
+            isWaiting = false;
+            connectionEstablished = true;
+            document.getElementById("partnerStatus").textContent = `Connected with ${partnerUsername}`;
+
+            conn.on("data", (data) => {
+                displayMessage(data, "partner-message");
+            });
+
+            conn.on("close", () => {
+                alert(`${partnerUsername} exits the Chat. Click OK to New Chat!`);
+                location.reload();
+            });
         }
     });
 
-    // Step 3: Error handling and reconnection attempts
     peer.on("error", (err) => {
         console.error("PeerJS error:", err);
-        if (retryAttempts < 3) { // Retry up to 3 times
-            retryAttempts++;
-            setTimeout(attemptConnectionToPartner, 2000); // Retry after 2 seconds
-        } else {
-            alert("Failed to establish connection. Please try again.");
-        }
     });
-}
-
-// Attempt to connect to the partner's peer ID
-function attemptConnectionToPartner() {
-    const partnerUsername = document.getElementById("partnerUsername").value;
-    const partnerPin = document.getElementById("partnerPin").value;
-    const partnerId = uniqueCode + partnerUsername + partnerPin;
-    conn = peer.connect(partnerId);
-
-    conn.on("open", () => {
-        setupConnection(conn, partnerUsername);
-    });
-
-    conn.on("close", () => {
-        handleDisconnection(partnerUsername);
-    });
-}
-
-// Step 4: Set up the connection with data handling and events
-function setupConnection(connection, partnerUsername) {
-    isWaiting = false;
-    connectionEstablished = true;
-    conn = connection;
-    document.getElementById("partnerStatus").textContent = `Connected with ${partnerUsername}`;
-
-    // Listen for incoming messages
-    conn.on("data", (data) => {
-        displayMessage(data, "partner-message");
-    });
-
-    // Close the connection when partner disconnects
-    conn.on("close", () => {
-        handleDisconnection(partnerUsername);
-    });
-}
-
-// Step 5: Manage disconnection events
-function handleDisconnection(partnerUsername) {
-    alert(`${partnerUsername} has left the chat. Click OK to start a new chat!`);
-    location.reload();
 }
 
 function sendMessage() {
@@ -134,6 +107,7 @@ function displayMessage(message, className) {
     messageElement.scrollIntoView();
 }
 
+
 function exitChat() {
     // Clear session storage
     sessionStorage.clear();
@@ -145,13 +119,13 @@ function exitChat() {
     location.reload();
 }
 
-// Step 6: Automatic reconnection on page reload
+// Reset on page reload
 window.onbeforeunload = function () {
     if (conn) conn.close();
     if (peer) peer.disconnect();
 };
 
-// Step 7: Event listener for Enter key to send message
+// Event listener for Enter key to send message
 document.getElementById("messageInput").addEventListener("keypress", function(event) {
     if (event.key === "Enter") {
         event.preventDefault();
