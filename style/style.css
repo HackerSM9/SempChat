@@ -55,6 +55,7 @@ hr {
     height: 2px;
     background: #7417ca;
     margin: 15px 0;
+    margin-bottom: -1px;
     border: none;
     border-radius: 10px;
     animation: subtleGlow 3s infinite;
@@ -141,8 +142,8 @@ button {
     border: none;
     color: #e1e1e1;
     border-radius: 50px;
-    padding: 12px;
-    margin: 10px 0;
+    padding: 13px;
+    margin: 4px;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
@@ -150,6 +151,10 @@ button {
 button:hover {
     background-color: #6a0dad;
     animation: subtleGlow 3s infinite;
+}
+
+.butline {
+  display: flex;
 }
 
 /* Chatbox Styling */
@@ -226,6 +231,7 @@ button:hover {
     background-color: #6a0dad;
     padding: 10px;
     margin: 0;
+    margin-top: -8px;
     border-radius: 20px;
     color: #fff;
     font-weight: bold;
