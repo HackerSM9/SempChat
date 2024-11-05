@@ -73,7 +73,7 @@
         <label for="pin"><i class="fas fa-lock"></i> Create PIN:</label><i class="fas fa-info-circle info"></i>
         <input type="password" id="pin"placeholder="4-6 digit PIN" pattern="\d{4,6}" minlength="4" maxlength="6" required>
       <span class="butline"><button id="exit-button" onclick="exitChat();reloadChat()"><i class="fa-solid fa-rotate-left"></i></button> 
-        <button onclick="goToStage2()">Next</button></span>
+        <button onclick="goToStage2()">Next <i class="fa-solid fa-angle-right"></i></button></span>
     </div>
 
     <!-- Stage 2: Enter Partner's Username and PIN -->
@@ -85,7 +85,7 @@
         <label for="partnerPin"><i class="fas fa-lock"></i> Partner's PIN:</label><i class="fas fa-info-circle info"></i>
         <input type="password" id="partnerPin" placeholder="4-6 digit PIN"  minlength="4" maxlength="6" required>
          <span class="butline"><button id="exit-button" onclick="exitChat();reloadChat()"><i class="fa-solid fa-rotate-left"></i></button>
-           <button onclick="connectToChat()">Enter Chat</button></span>
+           <button onclick="connectToChat()">Enter Chat <i class="fas fa-sign-in-alt"></i></button></span>
     </div>
 
     <!-- Stage 3: Chatbox Session -->
