@@ -65,12 +65,14 @@ hr {
 /* Footer styling */
 footer {
     text-align: center;
+    margin-top: 30px;
     padding: 10px;
     background-color: #121212;
 }
 
 footer p, footer a {
     color: grey;
+    text-decoration: ;
     font-size: 14px;
     margin: 0;
 }
