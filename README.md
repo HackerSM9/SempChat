@@ -1,7 +1,11 @@
-<center>DISCLAIMER</center>
+<center><h1>DISCLAIMER</h1></center>
+
 </hr>
-<h3><b>Proprietary License</b> - No Copy & Paste of Code. No Name Claiming of This App, Credit has to be given to <b>ME</b> <i>"Samarth Magdum"</i>. You Neither can edit the Source Code nor Fork the Repository to claim this App own by You. Use it as it is. Further you can contact <b>ME</b> <i>"Samarth Magdum"</i> for Issues, Reviews, Feedback and Additional Suggestions for better Improvement</h3>
+
+<h3><b>Proprietary License</b> - No Copy & Paste of Code. No Name Claiming of This App, Credit has to be given to <b>ME</b> <i>"Samarth Magdum"</i>. You Neither can edit the Source Code nor Fork the Repository to claim this App own by You. Use it as it is. Further you can contact <b>ME</b> <i>"Samarth Magdum"</i> for Issues, Reviews, Feedback and Additional Suggestions for better Improvement.</h3>
 </hr>
+
+---
 
 # SempChat
 Welcome to SempChat! A Private, Secure, and Transient chat Experience built for those who Prioritize Privacy and Simplicity. With SempChat, you can connect with a partner seamlessly without any saved credentials or chat logs.
