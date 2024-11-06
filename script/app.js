@@ -194,10 +194,10 @@ function showPopupMessage(event, message) {
 // Add event listeners for info icons
 document.querySelectorAll(".info").forEach((icon, index) => {
   const messages = [
-    "Create a Unique Username. Note: This will be a Temorary Username.",
-    "Create a Strong PIN (4-6 digits) for Secure Access. Note: This will be a Temorary PIN.",
+    "Note: This will be a Temorary Unique Username.",
+    "Note: This will be a Temorary PIN.",
     "Enter Same Username as your Partner created.",
-    "Enter Same Pin as your Partner created."
+    "Enter Same Pin as your Partner Set."
   ];
   icon.addEventListener("click", (event) => showPopupMessage(event, messages[index]));
 });
