@@ -2,7 +2,7 @@
 
 </hr>
 
-<h3><b>Proprietary License</b> - No Copy & Paste of Code. No Name Claiming of This App, Credit has to be given to <b>ME</b> <i>"Samarth Magdum"</i>. You Neither can edit the Source Code nor Fork the Repository to claim this App own by You. Use it as it is. Further you can contact <b>ME</b> <i>"Samarth Magdum"</i> for Issues, Reviews, Feedback and Additional Suggestions for better Improvement.</h3>
+<p><b>Proprietary License</b> - No Copy & Paste of Code. No Name Claiming of This App, Credit has to be given to <b>ME</b> <i>"Samarth Magdum"</i>. You Neither can edit the Source Code nor Fork the Repository to claim this App own by You. Use it as it is. Further you can contact <b>ME</b> <i>"Samarth Magdum"</i> for Issues, Reviews, Feedback and Additional Suggestions for better Improvement.</p>
 </hr>
 
 ---
