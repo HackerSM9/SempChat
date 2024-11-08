@@ -36,25 +36,24 @@ function connectToChat() {
     }
 
     const uniqueCode = "SM9"; // Unique Code for connections
-
-    // Initialize PeerJS with TURN configuration for reliable connectivity
     peer = new Peer(uniqueCode + username + pin, {
-    config: {
-        iceServers: [
-            { urls: 'stun:stun.l.google.com:19302' }, // Google’s public STUN server
-            { urls: 'stun:stun1.l.google.com:19302' }, // Additional STUN servers
-            { urls: 'stun:stun2.l.google.com:19302' }
-        ]
-    },
-    debug: 3
-});
+        config: {
+            iceServers: [
+                { urls: 'stun:stun.l.google.com:19302' },
+                { urls: 'stun:stun1.l.google.com:19302' },
+                { urls: 'stun:stun2.l.google.com:19302' }
+            ],
+            iceTransportPolicy: 'all',
+            iceCandidatePoolSize: 10
+        },
+        debug: 3
+    }); // Prepend unique Code
 
     // Display waiting message
     document.getElementById("stage2").classList.add("hidden");
     document.getElementById("stage3").classList.remove("hidden");
     document.getElementById("partnerStatus").textContent = `Waiting for ${partnerUsername} to connect...`;
 
-    // Attempt connection to partner's peer ID
     peer.on("open", (id) => {
         console.log("Peer connected with ID:", id);
 
@@ -95,16 +94,16 @@ function connectToChat() {
         }
     });
 
-    // PeerJS Error Handling
-    peer.on("error", (err) => {
-        console.error("PeerJS error:", err);
+    // Add event listener for ICE state changes for debugging
+    peer.on("iceConnectionStateChange", (event) => {
+        console.log("ICE connection state changed:", peer.iceConnectionState);
+        if (peer.iceConnectionState === "disconnected" || peer.iceConnectionState === "failed") {
+            console.warn("Peer connection has failed or disconnected.");
+        }
     });
 
-    // ICE state change handling for better connectivity monitoring
-    peer.on("iceConnectionStateChange", (event) => {
-        if (peer.iceConnectionState === 'failed' || peer.iceConnectionState === 'disconnected') {
-            console.log('Connection issue detected: ICE failed or disconnected.');
-        }
+    peer.on("error", (err) => {
+        console.error("PeerJS error:", err);
     });
 }
 
@@ -126,12 +125,14 @@ function displayMessage(message, className) {
     messageElement.scrollIntoView();
 }
 
-// Exit Chat Functionality
 function exitChat() {
+    // Clear session storage
     sessionStorage.clear();
+    // Clear cookies
     document.cookie.split(";").forEach(function(cookie) {
         document.cookie = cookie.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date(0).toUTCString() + ";path=/");
     });
+    // Reload the page
     location.reload();
 }
 
@@ -161,12 +162,12 @@ document.addEventListener('keydown', function(e) {
     }
 });
 
-// Reload Chat Functionality
+// Exits the ChatBox Session.
 function reloadChat() {
     location.reload();
 }
 
-// Pop-up Message on Info Icon Click
+// Function to show pop-up message on info icon click
 function showPopupMessage(event, message) {
   const existingPopup = document.querySelector(".popup-message");
   if (existingPopup) existingPopup.remove();
@@ -176,8 +177,8 @@ function showPopupMessage(event, message) {
   popup.textContent = message;
   document.body.appendChild(popup);
   const rect = event.target.getBoundingClientRect();
-
   const isMobile = window.innerWidth <= 600;
+
   if (isMobile) {
     popup.style.left = `${Math.min(rect.left + window.scrollX, window.innerWidth - popup.offsetWidth - 10)}px`;
     popup.style.top = `${rect.top + window.scrollY - popup.offsetHeight - 10}px`;
@@ -209,12 +210,13 @@ document.querySelectorAll(".info").forEach((icon, index) => {
   icon.addEventListener("click", (event) => showPopupMessage(event, messages[index]));
 });
 
-// PIN Restrictions
+// Pin Restriction for User
 document.getElementById("pin").addEventListener("input", function(e) {
     e.target.value = e.target.value.replace(/\D/g, "");
 });
 
+// Pin Restriction for Partner
 document.getElementById("partnerPin").addEventListener("input", function(e) {
     e.target.value = e.target.value.replace(/\D/g, "");
 });
-                         
+    
