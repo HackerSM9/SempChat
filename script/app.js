@@ -36,7 +36,18 @@ function connectToChat() {
     }
 
     const uniqueCode = "SM9"; // Unique Code for connections
-    peer = new Peer(uniqueCode + username + pin, { debug: 3 }); // Prepend unique Code
+
+    // Initialize PeerJS with TURN configuration for reliable connectivity
+    peer = new Peer(uniqueCode + username + pin, {
+    config: {
+        iceServers: [
+            { urls: 'stun:stun.l.google.com:19302' }, // Google’s public STUN server
+            { urls: 'stun:stun1.l.google.com:19302' }, // Additional STUN servers
+            { urls: 'stun:stun2.l.google.com:19302' }
+        ]
+    },
+    debug: 2
+});
 
     // Display waiting message
     document.getElementById("stage2").classList.add("hidden");
@@ -47,7 +58,7 @@ function connectToChat() {
     peer.on("open", (id) => {
         console.log("Peer connected with ID:", id);
 
-        const partnerId = uniqueCode + partnerUsername + partnerPin; // Prepend unique Code
+        const partnerId = uniqueCode + partnerUsername + partnerPin;
         conn = peer.connect(partnerId);
 
         conn.on("open", () => {
@@ -84,8 +95,16 @@ function connectToChat() {
         }
     });
 
+    // PeerJS Error Handling
     peer.on("error", (err) => {
         console.error("PeerJS error:", err);
+    });
+
+    // ICE state change handling for better connectivity monitoring
+    peer.on("iceConnectionStateChange", (event) => {
+        if (peer.iceConnectionState === 'failed' || peer.iceConnectionState === 'disconnected') {
+            console.log('Connection issue detected: ICE failed or disconnected.');
+        }
     });
 }
 
@@ -107,15 +126,12 @@ function displayMessage(message, className) {
     messageElement.scrollIntoView();
 }
 
-
+// Exit Chat Functionality
 function exitChat() {
-    // Clear session storage
     sessionStorage.clear();
-    // Clear cookies
     document.cookie.split(";").forEach(function(cookie) {
         document.cookie = cookie.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date(0).toUTCString() + ";path=/");
     });
-    // Reload the page
     location.reload();
 }
 
@@ -145,44 +161,35 @@ document.addEventListener('keydown', function(e) {
     }
 });
 
-// Exits the ChatBox Session.
+// Reload Chat Functionality
 function reloadChat() {
     location.reload();
 }
 
-// Function to show pop-up message on info icon click
+// Pop-up Message on Info Icon Click
 function showPopupMessage(event, message) {
-  // Remove any existing pop-up message to avoid multiple pop-ups
   const existingPopup = document.querySelector(".popup-message");
   if (existingPopup) existingPopup.remove();
 
-  // Create a new pop-up div
   const popup = document.createElement("div");
   popup.className = "popup-message";
   popup.textContent = message;
-
-  // Append the popup to the body to position it later
   document.body.appendChild(popup);
   const rect = event.target.getBoundingClientRect();
 
-  // Check the viewport width and position accordingly
   const isMobile = window.innerWidth <= 600;
   if (isMobile) {
-    // Position the pop-up above the icon for mobile
     popup.style.left = `${Math.min(rect.left + window.scrollX, window.innerWidth - popup.offsetWidth - 10)}px`;
     popup.style.top = `${rect.top + window.scrollY - popup.offsetHeight - 10}px`;
   } else {
-    // Position near the icon for desktop
     popup.style.left = `${rect.left + window.scrollX + 20}px`;
     popup.style.top = `${rect.top + window.scrollY - 10}px`;
   }
 
-  // Show the pop-up
   setTimeout(() => {
     popup.style.opacity = 1;
   }, 10);
 
-  // Close the pop-up when clicking outside of it
   document.addEventListener("click", function hidePopup(e) {
     if (!popup.contains(e.target) && e.target !== event.target) {
       popup.remove();
@@ -194,23 +201,20 @@ function showPopupMessage(event, message) {
 // Add event listeners for info icons
 document.querySelectorAll(".info").forEach((icon, index) => {
   const messages = [
-    "Note: This will be a Temorary Unique Username.",
-    "Note: This will be a Temorary PIN.",
+    "Note: This will be a Temporary Unique Username.",
+    "Note: This will be a Temporary PIN.",
     "Enter Same Username as your Partner created.",
     "Enter Same Pin as your Partner Set."
   ];
   icon.addEventListener("click", (event) => showPopupMessage(event, messages[index]));
 });
 
-
-// Pin Restriction for User
+// PIN Restrictions
 document.getElementById("pin").addEventListener("input", function(e) {
-    // Replace any non-numeric characters with an empty string
     e.target.value = e.target.value.replace(/\D/g, "");
 });
 
-// Pin Restriction for Partner
 document.getElementById("partnerPin").addEventListener("input", function(e) {
-    // Replace any non-numeric characters with an empty string
     e.target.value = e.target.value.replace(/\D/g, "");
 });
+                         
