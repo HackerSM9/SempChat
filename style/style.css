@@ -20,6 +20,58 @@ body, html {
     align-items: center;
 }
 
+/* Loading Screen Styles */
+.l-loading-screen {
+  background-color: #121212; /* SempChat theme color */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000; /* High z-index to cover main content */
+  color: #ffffff;
+  flex-direction: column;
+}
+
+/* Centered Content within Loading Screen */
+.l-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 20px;
+}
+
+/* Icon - Adjusted for all screen sizes */
+.l-icon {
+  width: 135px; /* Adjusted icon size */
+  margin-bottom: -25px;
+  padding-top: 11vh;
+}
+
+.l-title {
+  font-family: 'Agustina', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  color: #8533ff;
+  font-size: 2.3rem;
+  margin: 0;
+}
+
+/* Tagline positioned closer to the bottom, with space below */
+.l-tagline {
+  font-family: 'Cursive', Cursive;
+  color: #c299ff;
+  font-size: 2.2rem;
+  margin-top: auto; /* Moves tagline down */
+  margin-bottom: 20vh; /* Reserves 20% space below tagline */
+  padding-top: 28vh; /* Reserves 30% of the lower half above tagline */
+}
+
 /* Header styling - Icon and Title side-by-side */
 header {
     padding: 5px;
@@ -75,6 +127,7 @@ footer p, footer a {
     text-decoration: ;
     font-size: 14px;
     margin: 0;
+    padding: 1.5px;
 }
 
 /* Main content area */
