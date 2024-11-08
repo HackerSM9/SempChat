@@ -76,7 +76,6 @@ body, html {
 header {
     padding: 5px;
     margin: 10px 0;
-    text-alignment: center;
     justify-content: center;/* Center icon and title */
     padding: 10px;
     background-color: #121212;
@@ -119,12 +118,12 @@ footer {
     text-align: center;
     margin-top: 30px;
     padding: 10px;
+    padding-bottom: 5px;
     background-color: #121212;
 }
 
 footer p, footer a {
     color: grey;
-    text-decoration: ;
     font-size: 14px;
     margin: 0;
     padding: 1.5px;
