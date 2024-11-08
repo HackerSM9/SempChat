@@ -9,7 +9,6 @@ function goToStage2() {
     const username = document.getElementById("username").value;
     const pin = document.getElementById("pin").value;
 
-    // Validate username and PIN before moving to Stage 2
     if (!username || pin.length < 4 || pin.length > 6) {
         alert("Username and 4-6 Digit Pin is Required.");
         return;
@@ -25,7 +24,6 @@ function connectToChat() {
     const partnerUsername = document.getElementById("partnerUsername").value;
     const partnerPin = document.getElementById("partnerPin").value;
 
-    // PIN validation
     if (!username || !pin || !partnerUsername || !partnerPin) {
         alert("Please fill in all fields.");
         return;
@@ -35,7 +33,7 @@ function connectToChat() {
         return;
     }
 
-    const uniqueCode = "SM9"; // Unique Code for connections
+    const uniqueCode = "SM9"; 
     peer = new Peer(uniqueCode + username + pin, {
         config: {
             iceServers: [
@@ -47,9 +45,8 @@ function connectToChat() {
             iceCandidatePoolSize: 10
         },
         debug: 3
-    }); // Prepend unique Code
+    });
 
-    // Display waiting message
     document.getElementById("stage2").classList.add("hidden");
     document.getElementById("stage3").classList.remove("hidden");
     document.getElementById("partnerStatus").textContent = `Waiting for ${partnerUsername} to connect...`;
@@ -64,7 +61,6 @@ function connectToChat() {
             isWaiting = false;
             connectionEstablished = true;
             document.getElementById("partnerStatus").textContent = `Connected with ${partnerUsername}`;
-
             conn.on("data", (data) => {
                 displayMessage(data, "partner-message");
             });
@@ -82,7 +78,6 @@ function connectToChat() {
             isWaiting = false;
             connectionEstablished = true;
             document.getElementById("partnerStatus").textContent = `Connected with ${partnerUsername}`;
-
             conn.on("data", (data) => {
                 displayMessage(data, "partner-message");
             });
@@ -94,11 +89,13 @@ function connectToChat() {
         }
     });
 
-    // Add event listener for ICE state changes for debugging
+    // Monitor ICE State
     peer.on("iceConnectionStateChange", (event) => {
         console.log("ICE connection state changed:", peer.iceConnectionState);
         if (peer.iceConnectionState === "disconnected" || peer.iceConnectionState === "failed") {
             console.warn("Peer connection has failed or disconnected.");
+        } else if (peer.iceConnectionState === "connected") {
+            console.log("ICE connection established successfully!");
         }
     });
 
@@ -126,23 +123,18 @@ function displayMessage(message, className) {
 }
 
 function exitChat() {
-    // Clear session storage
     sessionStorage.clear();
-    // Clear cookies
     document.cookie.split(";").forEach(function(cookie) {
         document.cookie = cookie.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date(0).toUTCString() + ";path=/");
     });
-    // Reload the page
     location.reload();
 }
 
-// Reset on page reload
 window.onbeforeunload = function () {
     if (conn) conn.close();
     if (peer) peer.disconnect();
 };
 
-// Event listener for Enter key to send message
 document.getElementById("messageInput").addEventListener("keypress", function(event) {
     if (event.key === "Enter") {
         event.preventDefault();
@@ -150,24 +142,20 @@ document.getElementById("messageInput").addEventListener("keypress", function(ev
     }
 });
 
-// Disable right-click
 document.addEventListener('contextmenu', function(e) {
     e.preventDefault();
 });
 
-// Disable Ctrl+C and Ctrl+A
 document.addEventListener('keydown', function(e) {
     if (e.ctrlKey && (e.key === 'c' || e.key === 'a')) {
         e.preventDefault();
     }
 });
 
-// Exits the ChatBox Session.
 function reloadChat() {
     location.reload();
 }
 
-// Function to show pop-up message on info icon click
 function showPopupMessage(event, message) {
   const existingPopup = document.querySelector(".popup-message");
   if (existingPopup) existingPopup.remove();
@@ -199,7 +187,6 @@ function showPopupMessage(event, message) {
   });
 }
 
-// Add event listeners for info icons
 document.querySelectorAll(".info").forEach((icon, index) => {
   const messages = [
     "Note: This will be a Temporary Unique Username.",
@@ -210,13 +197,10 @@ document.querySelectorAll(".info").forEach((icon, index) => {
   icon.addEventListener("click", (event) => showPopupMessage(event, messages[index]));
 });
 
-// Pin Restriction for User
 document.getElementById("pin").addEventListener("input", function(e) {
     e.target.value = e.target.value.replace(/\D/g, "");
 });
 
-// Pin Restriction for Partner
 document.getElementById("partnerPin").addEventListener("input", function(e) {
     e.target.value = e.target.value.replace(/\D/g, "");
 });
-    
