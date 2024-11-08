@@ -66,16 +66,22 @@ body, html {
 .l-tagline {
   font-family: 'Cursive', Cursive;
   color: #c299ff;
-  font-size: 2.2rem;
+  font-size: 2rem;
   margin-top: auto; /* Moves tagline down */
   margin-bottom: 20vh; /* Reserves 20% space below tagline */
   padding-top: 28vh; /* Reserves 30% of the lower half above tagline */
+}
+
+.lin {
+  font-size: 20px;
+  display: inline;
 }
 
 /* Header styling - Icon and Title side-by-side */
 header {
     padding: 5px;
     margin: 10px 0;
+    text-alignment: center;
     justify-content: center;/* Center icon and title */
     padding: 10px;
     background-color: #121212;
@@ -124,6 +130,7 @@ footer {
 
 footer p, footer a {
     color: grey;
+    text-decoration: ;
     font-size: 14px;
     margin: 0;
     padding: 1.5px;
