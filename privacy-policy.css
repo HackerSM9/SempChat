@@ -65,10 +65,6 @@ footer {
     margin-top: 20px;
 }
 
-.fimg {
-    display: inline-block;
-}
-
 /* Mobile adjustments */
 @media (max-width: 600px) {
     section {
