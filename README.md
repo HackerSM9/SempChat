@@ -2,7 +2,8 @@
 
 </hr>
 
-<p><b>Proprietary License</b> - No Copy & Paste of Code. No Name Claiming of This App, Credit has to be given to <b>ME</b> <i>"Samarth Magdum"</i>. You Neither can edit the Source Code nor Fork the Repository to claim this App own by You. Use it as it is. Further you can contact <b>ME</b> <i>"Samarth Magdum"</i> for Issues, Reviews, Feedback and Additional Suggestions for better Improvement.</p>
+> [!WARNING]
+> <p><b>Proprietary License</b> - No Copy & Paste of Code. No Name Claiming of This App, Credit has to be given to <b>ME</b> <i>"Samarth Magdum"</i>. You Neither can edit the Source Code nor Fork the Repository to claim this App own by You. Use it as it is. Further you can contact <b>ME</b> <i>"Samarth Magdum"</i> for Issues, Reviews, Feedback and Additional Suggestions for better Improvement.</p>
 </hr>
 
 ---
@@ -51,14 +52,15 @@ Welcome to SempChat! A Private, Secure, and Transient chat Experience built for 
 
 ### Step 3: Start Chatting! 🟢
 
-Use the chatbox to send messages to your partner.
+- Use the chatbox to send messages to your partner.
 
-Messages are instantly visible to both users but vanish once either user leaves.
+- Messages are instantly visible to both users but vanish once either user leaves.
 
-If either user disconnects or reloads, the entire chat session clears automatically for both participants.
+- If either user disconnects or reloads, the entire chat session clears automatically for both participants.
 
 
-> Note: Messages and user data are not stored; everything is erased upon exit.
+> [!Note]
+>  Messages and user data are not stored; everything is erased upon exit.
 
 
 ## Privacy Policy (Summary) 📃
@@ -126,4 +128,5 @@ Loading Animation: SempChat displays a 1-second loading animation when starting 
 
 ---
 
-Feel free to explore and give feedback. Let’s make SempChat the ultimate private chat platform!
+> [!TIP]
+> Feel free to explore and give feedback. Let’s make SempChat the ultimate private chat platform!
