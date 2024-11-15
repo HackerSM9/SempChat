@@ -78,7 +78,7 @@
         <input type="text" id="username" placeholder="Username" required>
       <br>
         <label for="pin"><i class="fas fa-lock"></i> Create PIN:</label><i class="fas fa-info-circle info"></i>
-        <input type="password" id="pin"placeholder="4-6 digit PIN" pattern="\d{4,6}" minlength="4" maxlength="6" required>
+        <input type="tel" id="pin" placeholder="4-6 digit PIN" inputmode="numeric" pattern="\d{4,6}" minlength="4" maxlength="6" autocomplete="off" style="-webkit-text-security: disc;" required>
       <span class="butline"><button id="exit-button" onclick="exitChat();reloadChat()"><i class="fa-solid fa-rotate-left"></i></button> 
         <button onclick="goToStage2()">Next <i class="fa-solid fa-angle-right"></i></button></span>
     </div>
@@ -90,7 +90,7 @@
         <input type="text" id="partnerUsername" placeholder="Partner's Username" required>
       <br>
         <label for="partnerPin"><i class="fas fa-lock"></i> Partner's PIN:</label><i class="fas fa-info-circle info"></i>
-        <input type="password" id="partnerPin" placeholder="4-6 digit PIN"  minlength="4" maxlength="6" required>
+        <input type="tel" id="partnerPin" placeholder="4-6 digit PIN" inputmode="numeric" pattern="\d{4,6}" minlength="4" maxlength="6" autocomplete="off" style="-webkit-text-security: disc;" required>
          <span class="butline"><button id="exit-button" onclick="exitChat();reloadChat()"><i class="fa-solid fa-rotate-left"></i></button>
            <button onclick="connectToChat()">Enter Chat <i class="fas fa-sign-in-alt"></i></button></span>
     </div>
@@ -116,7 +116,7 @@
     </footer>
 
     <script src="script/app.js"></script>
-    <script src="script/secure.js"></script>
+    <!--<script src="script/secure.js"></script>-->
     <!-- Place this script at the end of your HTML or within a script tag in the head section -->
     <script>
       // Wait for the page to fully load
