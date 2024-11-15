@@ -30,7 +30,7 @@ Welcome to SempChat! A Private, Secure, and Transient chat Experience built for 
 
 ## How to Use SempChat 🚦
 
-### Step 1: Registration 🔴
+### Step 1: Creation 🔴
 
 1. Open the SempChat app on your browser.
 
