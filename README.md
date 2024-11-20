@@ -11,6 +11,8 @@
 # SempChat
 Welcome to SempChat! A Private, Secure, and Transient chat Experience built for those who Prioritize Privacy and Simplicity. With SempChat, you can connect with a partner seamlessly without any saved credentials or chat logs.
 
+<a href="https://www.producthunt.com/posts/sempchat?embed=true&utm_source=badge-featured&utm_medium=badge&utm_souce=badge-sempchat" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=630325&theme=light" alt="SempChat - Connect&#0046;&#0032;Chat&#0046;&#0032;Disappear&#0046;&#0032;&#0034;Safe&#0046;&#0032;Simple&#0046;&#0032;Swift&#0046;&#0034; | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>
+
 ## Features 🚀
 
 - User Registration: Register with a unique username and a secure PIN (4-6 digits).
