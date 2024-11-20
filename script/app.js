@@ -1,5 +1,3 @@
-// app.js
-
 let peer;
 let conn;
 let isWaiting = true;
