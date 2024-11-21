@@ -13,6 +13,8 @@ Welcome to SempChat! A Private, Secure, and Transient chat Experience built for 
 
 <a href="https://www.producthunt.com/posts/sempchat?embed=true&utm_source=badge-featured&utm_medium=badge&utm_souce=badge-sempchat" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=630325&theme=light" alt="SempChat - Connect&#0046;&#0032;Chat&#0046;&#0032;Disappear&#0046;&#0032;&#0034;Safe&#0046;&#0032;Simple&#0046;&#0032;Swift&#0046;&#0034; | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>
 
+[![Views](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FHackerSM9%2FSempChat%2F&count_bg=%238533FF&title_bg=%231F1F1F&icon=&icon_color=%238533FF&title=Visitors&edge_flat=false)](https://hits.seeyoufarm.com)
+
 ## Features 🚀
 
 - User Registration: Register with a unique username and a secure PIN (4-6 digits).
