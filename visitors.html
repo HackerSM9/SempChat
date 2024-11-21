@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Visitor Counter</title>
+</head>
+<body>
+  <h1>Visitor Counter</h1>
+  <div id="visitorCount">Loading...</div>
+  <script type="module">
+    // Firebase configuration (replace this with your Firebase config from the console)
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
+    import { getDatabase, ref, get, set, update } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+      databaseURL: "https://YOUR_PROJECT_ID.firebaseio.com",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "YOUR_PROJECT_ID.appspot.com",
+      messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+      appId: "YOUR_APP_ID"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    // Function to track unique visitors
+    async function trackVisitor() {
+      const clientIP = await getVisitorIP();
+      const visitorRef = ref(db, `visitors/${clientIP}`);
+
+      const snapshot = await get(visitorRef);
+      if (!snapshot.exists()) {
+        // Add new visitor
+        await set(visitorRef, { timestamp: Date.now() });
+        await incrementVisitorCount();
+      }
+    }
+
+    // Function to increment visitor count
+    async function incrementVisitorCount() {
+      const countRef = ref(db, "visitorCount");
+      const snapshot = await get(countRef);
+      const newCount = snapshot.exists() ? snapshot.val() + 1 : 1;
+      await update(ref(db), { visitorCount: newCount });
+    }
+
+    // Function to fetch the visitor count
+    async function getVisitorCount() {
+      const countRef = ref(db, "visitorCount");
+      const snapshot = await get(countRef);
+      return snapshot.exists() ? snapshot.val() : 0;
+    }
+
+    // Utility function to get the visitor's IP
+    async function getVisitorIP() {
+      const response = await fetch("https://api.ipify.org?format=json");
+      const data = await response.json();
+      return data.ip;
+    }
+
+    // Main execution
+    trackVisitor().then(() => {
+      getVisitorCount().then((count) => {
+        document.getElementById("visitorCount").textContent = `Total unique visitors: ${count}`;
+      });
+    });
+  </script>
+</body>
+</html>
