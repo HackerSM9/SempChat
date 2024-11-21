@@ -9,23 +9,26 @@
   <h1>Visitor Counter</h1>
   <div id="visitorCount">Loading...</div>
   <script type="module">
-    // Firebase configuration (replace this with your Firebase config from the console)
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
-    import { getDatabase, ref, get, set, update } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js";
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-analytics.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
 
-    const firebaseConfig = {
-      apiKey: "YOUR_API_KEY",
-      authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-      databaseURL: "https://YOUR_PROJECT_ID.firebaseio.com",
-      projectId: "YOUR_PROJECT_ID",
-      storageBucket: "YOUR_PROJECT_ID.appspot.com",
-      messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-      appId: "YOUR_APP_ID"
-    };
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyDbj-94HaCLahfpo7-Z3SBz2omCJsVkUhs",
+    authDomain: "sempchat.firebaseapp.com",
+    projectId: "sempchat",
+    storageBucket: "sempchat.firebasestorage.app",
+    messagingSenderId: "665811496687",
+    appId: "1:665811496687:web:b8c3e3bb2016ffb781351a",
+    measurementId: "G-49SKQEEX44"
+  };
 
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
 
     // Function to track unique visitors
     async function trackVisitor() {
