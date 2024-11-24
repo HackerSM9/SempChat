@@ -15,22 +15,6 @@ Welcome to SempChat! A Private, Secure, and Transient chat Experience built for 
 
 [![Views](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FHackerSM9%2FSempChat%2F&count_bg=%238533FF&title_bg=%231F1F1F&icon=&icon_color=%238533FF&title=Visitors&edge_flat=false)](https://hits.seeyoufarm.com)
 
-## Features 🚀
-
-- User Registration: Register with a unique username and a secure PIN (4-6 digits).
-
-- Instant Partner Connection: Connect to your partner’s chat using their username and PIN, establishing a private, secure session.
-
-- Secure Chat Sessions: Messages vanish as soon as you exit—no traces left behind.
-
-- Dynamic Design: A single-page interface with a dark theme and purple animations for an immersive experience.
-
-- Responsive Design: SempChat is optimized for both desktop and mobile viewing.
-
-- Enter Key Shortcut: Pressing 'Enter' in the chatbox will instantly send your message.
-
-- No Data Storage: Neither your credentials nor chat messages are stored anywhere.
-
 
 ## How to Use SempChat 🚦
 
@@ -65,6 +49,22 @@ Welcome to SempChat! A Private, Secure, and Transient chat Experience built for 
 
 > [!Note]
 >  Messages and user data are not stored; everything is erased upon exit.
+
+## Features 🚀
+
+- User Registration: Register with a unique username and a secure PIN (4-6 digits).
+
+- Instant Partner Connection: Connect to your partner’s chat using their username and PIN, establishing a private, secure session.
+
+- Secure Chat Sessions: Messages vanish as soon as you exit—no traces left behind.
+
+- Dynamic Design: A single-page interface with a dark theme and purple animations for an immersive experience.
+
+- Responsive Design: SempChat is optimized for both desktop and mobile viewing.
+
+- Enter Key Shortcut: Pressing 'Enter' in the chatbox will instantly send your message.
+
+- No Data Storage: Neither your credentials nor chat messages are stored anywhere.
 
 
 ## Privacy Policy (Summary) 📃
