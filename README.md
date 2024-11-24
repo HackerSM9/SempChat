@@ -25,7 +25,7 @@ Welcome to SempChat! A Private, Secure, and Transient chat Experience built for 
 
 2. Enter a unique username and choose a 4-6 digit PIN. (Tip: PIN should be strong for added security.)
 
-<img src="/images/screenshots/creation.jpg">
+<img src="/images/screenshots/creation.jpg" height="450px">
 
 ### Step 2: Partner Connection 🟡
 
@@ -37,7 +37,7 @@ Welcome to SempChat! A Private, Secure, and Transient chat Experience built for 
 
 3. Once connected, the chat window will display “Connected with [partner’s name]” at the top.
 
-<img src="/images/screenshots/partner.jpg">
+<img src="/images/screenshots/partner.jpg" height="450px">
 
 ### Step 3: Start Chatting! 🟢
 
@@ -47,7 +47,7 @@ Welcome to SempChat! A Private, Secure, and Transient chat Experience built for 
 
 - If either user disconnects or reloads, the entire chat session clears automatically for both participants.
 
-<img src="/images/screenshots/chatbox-session.jpg">
+<img src="/images/screenshots/chatbox-session.jpg" height="450px">
 
 > [!Note]
 >  Messages and user data are not stored; everything is erased upon exit.
