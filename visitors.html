@@ -35,7 +35,6 @@
     </div>
 
     <script type="module">
-        // Import Firebase dependencies
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
         import { getDatabase, ref, get, set, update } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-database.js";
 
@@ -43,7 +42,7 @@
         const firebaseConfig = {
             apiKey: "AIzaSyDbj-94HaCLahfpo7-Z3SBz2omCJsVkUhs",
             authDomain: "sempchat.firebaseapp.com",
-            databaseURL: "https://sempchat-default-rtdb.firebaseio.com",  // Ensure the database URL is correct
+            databaseURL: "https://sempchat-default-rtdb.asia-southeast1.firebasedatabase.app", // Corrected URL
             projectId: "sempchat",
             storageBucket: "sempchat.appspot.com",
             messagingSenderId: "665811496687",
@@ -54,6 +53,11 @@
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
+
+        // Function to sanitize IP address
+        function sanitizeIP(ip) {
+            return ip.replace(/\./g, "_");
+        }
 
         // Function to fetch user's IP address
         async function getVisitorIP() {
@@ -76,7 +80,8 @@
                     return;
                 }
 
-                const visitorRef = ref(db, `visitors/${clientIP}`);
+                const sanitizedIP = sanitizeIP(clientIP);
+                const visitorRef = ref(db, `visitors/${sanitizedIP}`);
                 const snapshot = await get(visitorRef);
 
                 if (!snapshot.exists()) {
