@@ -36,13 +36,13 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
-        import { getDatabase, ref, get, set, update } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-database.js";
+        import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-database.js";
 
         // Firebase configuration
         const firebaseConfig = {
             apiKey: "AIzaSyDbj-94HaCLahfpo7-Z3SBz2omCJsVkUhs",
             authDomain: "sempchat.firebaseapp.com",
-            databaseURL: "https://sempchat-default-rtdb.asia-southeast1.firebasedatabase.app", // Corrected URL
+            databaseURL: "https://sempchat-default-rtdb.asia-southeast1.firebasedatabase.app",
             projectId: "sempchat",
             storageBucket: "sempchat.appspot.com",
             messagingSenderId: "665811496687",
@@ -54,59 +54,21 @@
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
 
-        // Function to sanitize IP address
-        function sanitizeIP(ip) {
-            return ip.replace(/\./g, "_");
-        }
-
-        // Function to fetch user's IP address
-        async function getVisitorIP() {
+        // Function to fetch the visitor count
+        async function fetchVisitorCount() {
             try {
-                const response = await fetch("https://api.ipify.org?format=json");
-                const data = await response.json();
-                return data.ip;
+                const countRef = ref(db, "visitorCount");
+                const snapshot = await get(countRef);
+                const count = snapshot.exists() ? snapshot.val() : 0;
+                document.getElementById("visitorCount").textContent = `Total unique visitors: ${count}`;
             } catch (error) {
-                console.error("Error fetching IP:", error);
-                return null;
+                console.error("Error fetching visitor count:", error);
+                document.getElementById("visitorCount").textContent = "Error fetching visitor count.";
             }
         }
 
-        // Function to increment visitor count if IP is unique
-        async function trackVisitor() {
-            try {
-                const clientIP = await getVisitorIP();
-                if (!clientIP) {
-                    document.getElementById("visitorCount").textContent = "Error fetching IP";
-                    return;
-                }
-
-                const sanitizedIP = sanitizeIP(clientIP);
-                const visitorRef = ref(db, `visitors/${sanitizedIP}`);
-                const snapshot = await get(visitorRef);
-
-                if (!snapshot.exists()) {
-                    // Add new IP to visitors
-                    await set(visitorRef, { timestamp: Date.now() });
-
-                    // Increment the visitor count
-                    const countRef = ref(db, "visitorCount");
-                    const countSnap = await get(countRef);
-                    const newCount = countSnap.exists() ? countSnap.val() + 1 : 1;
-                    await set(countRef, newCount);
-                }
-
-                // Display updated visitor count
-                const updatedCountSnap = await get(ref(db, "visitorCount"));
-                const visitorCount = updatedCountSnap.exists() ? updatedCountSnap.val() : 0;
-                document.getElementById("visitorCount").textContent = `Total unique visitors: ${visitorCount}`;
-            } catch (error) {
-                console.error("Error tracking visitor:", error);
-                document.getElementById("visitorCount").textContent = "Error tracking visitors";
-            }
-        }
-
-        // Execute visitor tracking
-        trackVisitor();
+        // Fetch and display visitor count
+        fetchVisitorCount();
     </script>
 </body>
 </html>
