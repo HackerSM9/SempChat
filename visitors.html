@@ -4,73 +4,104 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Visitor Counter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #391d63;
+            color: white;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        #visitorCount {
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
-    <h1>Visitor Counter</h1>
-    <div id="visitorCount">Loading...</div>
+    <div>
+        <h1>Visitor Counter</h1>
+        <div id="visitorCount">Loading...</div>
+    </div>
 
     <script type="module">
+        // Import Firebase dependencies
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-analytics.js";
-        // https://firebase.google.com/docs/web/setup#available-libraries
+        import { getDatabase, ref, get, set, update } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-database.js";
 
-        // Your web app's Firebase configuration
-        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        // Firebase configuration
         const firebaseConfig = {
-          apiKey: "AIzaSyDbj-94HaCLahfpo7-Z3SBz2omCJsVkUhs",
-          authDomain: "sempchat.firebaseapp.com",
-          projectId: "sempchat",
-          storageBucket: "sempchat.firebasestorage.app",
-          messagingSenderId: "665811496687",
-          appId: "1:665811496687:web:b8c3e3bb2016ffb781351a",
-          measurementId: "G-49SKQEEX44"
+            apiKey: "AIzaSyDbj-94HaCLahfpo7-Z3SBz2omCJsVkUhs",
+            authDomain: "sempchat.firebaseapp.com",
+            databaseURL: "https://sempchat-default-rtdb.firebaseio.com",  // Ensure the database URL is correct
+            projectId: "sempchat",
+            storageBucket: "sempchat.appspot.com",
+            messagingSenderId: "665811496687",
+            appId: "1:665811496687:web:b8c3e3bb2016ffb781351a",
+            measurementId: "G-49SKQEEX44"
         };
 
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
-        const analytics = getAnalytics(app);
+        const db = getDatabase(app);
 
-              // Function to track unique visitors
-              async function trackVisitor() {
-                  const clientIP = await getVisitorIP();
-                  const visitorRef = ref(db, `visitors/${clientIP}`);
-
-                  const snapshot = await get(visitorRef);
-                  if (!snapshot.exists()) {
-                      // Add new visitor
-                      await set(visitorRef, { timestamp: Date.now() });
-                      await incrementVisitorCount();
-                  }
-              }
-
-        // Function to increment visitor count
-        async function incrementVisitorCount() {
-            const countRef = ref(db, "visitorCount");
-            const snapshot = await get(countRef);
-            const newCount = snapshot.exists() ? snapshot.val() + 1 : 1;
-            await update(ref(db), { visitorCount: newCount });
-        }
-
-        // Function to fetch the visitor count
-        async function getVisitorCount() {
-            const countRef = ref(db, "visitorCount");
-            const snapshot = await get(countRef);
-            return snapshot.exists() ? snapshot.val() : 0;
-        }
-
-        // Utility function to get the visitor's IP
+        // Function to fetch user's IP address
         async function getVisitorIP() {
-            const response = await fetch("https://api.ipify.org?format=json");
-            const data = await response.json();
-            return data.ip;
+            try {
+                const response = await fetch("https://api.ipify.org?format=json");
+                const data = await response.json();
+                return data.ip;
+            } catch (error) {
+                console.error("Error fetching IP:", error);
+                return null;
+            }
         }
 
-        // Main execution
-        trackVisitor().then(() => {
-            getVisitorCount().then((count) => {
-                document.getElementById("visitorCount").textContent = `Total unique visitors: ${count}`;
-            });
-        });
+        // Function to increment visitor count if IP is unique
+        async function trackVisitor() {
+            try {
+                const clientIP = await getVisitorIP();
+                if (!clientIP) {
+                    document.getElementById("visitorCount").textContent = "Error fetching IP";
+                    return;
+                }
+
+                const visitorRef = ref(db, `visitors/${clientIP}`);
+                const snapshot = await get(visitorRef);
+
+                if (!snapshot.exists()) {
+                    // Add new IP to visitors
+                    await set(visitorRef, { timestamp: Date.now() });
+
+                    // Increment the visitor count
+                    const countRef = ref(db, "visitorCount");
+                    const countSnap = await get(countRef);
+                    const newCount = countSnap.exists() ? countSnap.val() + 1 : 1;
+                    await set(countRef, newCount);
+                }
+
+                // Display updated visitor count
+                const updatedCountSnap = await get(ref(db, "visitorCount"));
+                const visitorCount = updatedCountSnap.exists() ? updatedCountSnap.val() : 0;
+                document.getElementById("visitorCount").textContent = `Total unique visitors: ${visitorCount}`;
+            } catch (error) {
+                console.error("Error tracking visitor:", error);
+                document.getElementById("visitorCount").textContent = "Error tracking visitors";
+            }
+        }
+
+        // Execute visitor tracking
+        trackVisitor();
     </script>
 </body>
 </html>
