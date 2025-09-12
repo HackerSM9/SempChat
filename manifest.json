@@ -1,0 +1,24 @@
+{
+  "background_color": "#121212",
+  "description": "SempChat is a Secure Temporary Chatting App designed for Swift, Short and Vanishing/Disposable Chats. Enter a Chat Session with Unique Usernames and PIN-protected access, dark mode, and real-time message removal for ultimate privacy.",
+  "dir": "ltr",
+  "display": "standalone",
+  "name": "SempChat - Disappearing Messages Chat App",
+  "orientation": "any",
+  "scope": "/",
+  "short_name": "SempChat - Disappearing Messages Chat App",
+  "start_url": "https://hackersm9.github.io/SempChat/",
+  "theme_color": "#8533ff",
+  "icons": [
+    {
+      "src": "https://hackersm9.github.io/SempChat/images/fav.ico",
+      "type": "image/jpeg",
+      "sizes": "1080x1080"
+    },
+    {
+      "src": "https://hackersm9.github.io/SempChat/images/sempchat-icon.png",
+      "type": "image/jpeg",
+      "sizes": "1080x1080"
+    }
+  ]
+}
