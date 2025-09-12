@@ -47,11 +47,20 @@
               "datePublished": "2024-10-27"
             }
             </script>
-    <script type="module">
-   import 'https://cdn.jsdelivr.net/npm/@pwabuilder/pwaupdate';
-   const el = document.createElement('pwa-update');
-   document.body.appendChild(el);
-    </script>    
+            <script type="module">
+           import 'https://cdn.jsdelivr.net/npm/@pwabuilder/pwaupdate';
+           const el = document.createElement('pwa-update');
+           document.body.appendChild(el);
+            </script>    
+            <script>
+              if ("serviceWorker" in navigator) {
+                window.addEventListener("load", () => {
+                  navigator.serviceWorker.register("pwabuilder-sw.js")
+                    .then(reg => console.log("Service worker registered:", reg))
+                    .catch(err => console.log("Service worker error:", err));
+                });
+              }
+            </script>
     <!-- Start of Actual head tags -->
     <link rel="icon" type="image/x-icon" href="https://hackersm9.github.io/SempChat/images/fav.ico">
     <title>SempChat</title>
