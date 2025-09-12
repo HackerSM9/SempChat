@@ -11,6 +11,16 @@
   "theme_color": "#8533ff",
   "icons": [
     {
+      "src": "https://hackersm9.github.io/SempChat/images/sempchat-192.png",
+      "type": "image/jpeg",
+      "sizes": "192x192"
+    },
+    {
+      "src": "https://hackersm9.github.io/SempChat/images/sempchat-512.png",
+      "type": "image/jpeg",
+      "sizes": "512x512"
+    },
+    {
       "src": "https://hackersm9.github.io/SempChat/images/fav.ico",
       "type": "image/jpeg",
       "sizes": "1080x1080"
