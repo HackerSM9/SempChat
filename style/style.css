@@ -48,7 +48,7 @@ body, html {
 
 /* Icon - Adjusted for all screen sizes */
 .l-icon {
-  width: 140px; /* Adjusted icon size */
+  width: 135px; /* Adjusted icon size */
   margin-bottom: -25px;
   padding-top: 11vh;
 }
@@ -88,8 +88,8 @@ header {
 }
 
 .icon-svg {
-    width: 60px;
-    height: 60px;
+    width: 65px;
+    height: 65px;
     fill: #bb86fc;
     margin: -15px 0;
     display: inline-block;
